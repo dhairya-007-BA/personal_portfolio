@@ -2,101 +2,458 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dhairya Singhal | Business Analyst</title>
+  <meta name="description" content="Dhairya Singhal — Business Analyst focused on data storytelling, digital transformation, and strategy. Portfolio with projects, experience, skills, and contact." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <!-- Fixed DSBA logo -->
+  <a class="logo-fixed" href="#home" aria-label="Go to top">
+    <img src="logo.png" alt="DSBA Logo" />
+  </a>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1>Dhairya Singhal</h1>
-    <p>Business Analyst · Data & Strategy · Digital Transformation</p>
-    <div class="buttons">
-      <a href="Dhairya_Singhal_Resume.pdf" target="_blank">Download Resume</a>
-      <a href="#projects">View Projects</a>
-    </div>
-  </header>
+  <!-- Sticky Navigation -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Home">
+        <span class="brand-dot"></span>
+        <span class="brand-text">Dhairya Singhal</span>
+      </a>
 
-  <!-- ABOUT -->
-  <section class="section">
-    <h2>About</h2>
-    <p>
-      I’m a Business Analyst with experience building dashboards, improving data
-      quality, and enabling leadership decisions across education and startup
-      environments.
-    </p>
-  </section>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
 
-  <!-- EXPERIENCE -->
-  <section class="section">
-    <h2>Experience</h2>
-
-    <div class="card">
-      <h3>Beedie Executive Education</h3>
-      <span>Junior Business Analyst (Co-op)</span>
-      <ul>
-        <li>Built KPI dashboards for leadership</li>
-        <li>Analyzed enrollment and revenue data</li>
-        <li>Improved CRM reporting workflows</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Provelt</h3>
-      <span>Chief Project Manager</span>
-      <ul>
-        <li>Led data-driven product initiatives</li>
-        <li>Worked with analytics & operations teams</li>
-        <li>Drove strategic reporting decisions</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section class="section" id="projects">
-    <h2>Featured Projects</h2>
-
-    <div class="projects">
-      <div class="project">
-        <img src="dashboard1.png" alt="Dashboard 1">
-        <h4>Toronto Budget vs Actuals</h4>
-        <p>Power BI dashboard analyzing 5,000+ budget records.</p>
-      </div>
-
-      <div class="project">
-        <img src="dashboard2.png" alt="Dashboard 2">
-        <h4>Operational Delay Analytics</h4>
-        <p>Python & Tableau analysis of 10,000+ flight records.</p>
-      </div>
-
-      <div class="project">
-        <img src="dashboard3.png" alt="Dashboard 3">
-        <h4>Salesforce Data Quality</h4>
-        <p>CRM cleanup improving reporting accuracy by 40%.</p>
+      <div class="nav-links" role="navigation">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- SKILLS -->
-  <section class="section">
-    <h2>Skills</h2>
-    <div class="skills">
-      <span>Power BI</span>
-      <span>Tableau</span>
-      <span>Excel</span>
-      <span>SQL</span>
-      <span>Python</span>
-      <span>Salesforce</span>
-    </div>
-  </section>
+  <!-- Main -->
+  <main>
+    <!-- HOME -->
+    <section id="home" class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-left reveal">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              <span>Business Analyst · Data & Digital Transformation</span>
+            </div>
 
-  <!-- CONTACT -->
+            <h1 class="hero-title">
+              Dhairya <span class="accent">Singhal</span>
+            </h1>
+
+            <p class="hero-tagline">
+              Turning Data into Decisions. Bridging Business and Technology.
+            </p>
+
+            <p class="hero-intro">
+              I help teams move from messy information to clear direction—through
+              data storytelling, business analysis, and practical digital transformation.
+              My long-term ambition is technology consulting and strategy, where analytics
+              drives measurable outcomes.
+            </p>
+
+            <div class="hero-cta">
+              <a class="btn primary" href="#projects">View My Work</a>
+              <a class="btn secondary" href="#contact">Get in Touch</a>
+              <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+            </div>
+
+            <div class="hero-metrics">
+              <div class="metric">
+                <div class="metric-value">Data → Action</div>
+                <div class="metric-label">Dashboards, KPIs, reporting</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Business + Tech</div>
+                <div class="metric-label">Process, systems, stakeholders</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Leadership</div>
+                <div class="metric-label">Team, ownership, execution</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right reveal">
+            <div class="hero-card">
+              <h3>What I’m known for</h3>
+              <ul class="checklist">
+                <li>Explaining complex data in simple, leadership-ready language</li>
+                <li>Turning requirements into clean workflows and measurable KPIs</li>
+                <li>Building dashboards that answer “So what?” not just “What happened?”</li>
+              </ul>
+
+              <div class="quick-links">
+                <a class="mini-link" href="mailto:dhairyasinghal403@gmail.com">Email</a>
+                <span class="dot-sep">·</span>
+                <a class="mini-link" href="https://linkedin.com/in/dhairya004" target="_blank" rel="noopener">LinkedIn</a>
+                <span class="dot-sep">·</span>
+                <a class="mini-link" href="#projects">Projects</a>
+              </div>
+
+              <div class="note">
+                <strong>Recruiter note:</strong> This portfolio is designed to be scanned in under 60 seconds.
+              </div>
+            </div>
+
+            <div class="glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>About</h2>
+          <p class="subhead">
+            I believe data should empower people—not overwhelm them.
+            My role is to translate complexity into clarity so teams can move faster with confidence.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card reveal">
+            <h3>How I work</h3>
+            <p>
+              I combine business analysis with analytical thinking—starting from the “decision”
+              we need to support, then working backwards into data, metrics, and process.
+              I focus on stakeholder alignment, clean definitions, and simple reporting experiences.
+            </p>
+            <div class="tags">
+              <span class="tag">Data Storytelling</span>
+              <span class="tag">Requirements</span>
+              <span class="tag">KPI Design</span>
+              <span class="tag">Process Improvement</span>
+            </div>
+          </div>
+
+          <div class="about-card reveal">
+            <h3>Where I’m headed</h3>
+            <p>
+              I’m building toward technology consulting and strategy—roles where analytics,
+              systems thinking, and leadership come together to drive business outcomes.
+              I enjoy work that sits at the intersection of people, process, and platforms.
+            </p>
+            <div class="tags">
+              <span class="tag">Digital Transformation</span>
+              <span class="tag">Strategy</span>
+              <span class="tag">Analytics Leadership</span>
+            </div>
+          </div>
+
+          <div class="about-card reveal">
+            <h3>Education</h3>
+            <p>
+              <strong>BBA — Simon Fraser University</strong><br/>
+              Focus: MIS, Operations, Business Analysis
+            </p>
+            <div class="edu-list">
+              <div class="edu-item">
+                <div class="edu-title">MIS & Systems</div>
+                <div class="edu-desc">How platforms + processes connect</div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-title">Operations</div>
+                <div class="edu-desc">Optimization, efficiency, execution</div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-title">Business Analysis</div>
+                <div class="edu-desc">Requirements, stakeholders, outcomes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Experience</h2>
+          <p class="subhead">Impact-focused roles across business analysis, project leadership, and data work.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="t-item reveal">
+            <div class="t-dot"></div>
+            <div class="t-card">
+              <div class="t-top">
+                <h3>Junior Business Analyst</h3>
+                <span class="t-meta">Beedie Executive Education · SFU</span>
+              </div>
+              <ul class="bullets">
+                <li>Supported KPI reporting and dashboarding for program performance</li>
+                <li>Improved CRM reporting workflows to increase data clarity for stakeholders</li>
+                <li>Partnered with teams to align definitions, metrics, and reporting needs</li>
+              </ul>
+              <div class="chips">
+                <span class="chip">Dashboards</span>
+                <span class="chip">CRM / Salesforce</span>
+                <span class="chip">Stakeholders</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="t-item reveal">
+            <div class="t-dot"></div>
+            <div class="t-card">
+              <div class="t-top">
+                <h3>Project Manager</h3>
+                <span class="t-meta">Product / Growth Initiatives</span>
+              </div>
+              <ul class="bullets">
+                <li>Owned execution across cross-functional teams with clear milestones and outcomes</li>
+                <li>Translated business needs into deliverables, documentation, and reporting</li>
+                <li>Improved delivery clarity with structured communication and prioritization</li>
+              </ul>
+              <div class="chips">
+                <span class="chip">Execution</span>
+                <span class="chip">Planning</span>
+                <span class="chip">Communication</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="t-item reveal">
+            <div class="t-dot"></div>
+            <div class="t-card">
+              <div class="t-top">
+                <h3>Data Research Assistant</h3>
+                <span class="t-meta">Research · Market & Industry</span>
+              </div>
+              <ul class="bullets">
+                <li>Structured datasets for analysis and reporting, focusing on accuracy and usability</li>
+                <li>Created repeatable research workflows for consistent outputs</li>
+                <li>Delivered insights in clean formats stakeholders can act on quickly</li>
+              </ul>
+              <div class="chips">
+                <span class="chip">Research</span>
+                <span class="chip">Data Quality</span>
+                <span class="chip">Synthesis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="t-item reveal">
+            <div class="t-dot"></div>
+            <div class="t-card">
+              <div class="t-top">
+                <h3>Leadership</h3>
+                <span class="t-meta">AIESEC · Enactus (Selected)</span>
+              </div>
+              <ul class="bullets">
+                <li>Led teams through planning, delivery, and stakeholder communication</li>
+                <li>Built confidence presenting strategy and outcomes to diverse audiences</li>
+                <li>Strengthened leadership through ownership, iteration, and accountability</li>
+              </ul>
+              <div class="chips">
+                <span class="chip">Leadership</span>
+                <span class="chip">Presentation</span>
+                <span class="chip">Teamwork</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="note-wide reveal">
+          Want the exact bullet points/metrics from your resume? Drop them in and I’ll tighten wording to “consulting-ready” format.
+        </p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Projects</h2>
+          <p class="subhead">Problem → Solution → Impact. Built to show how I think and deliver outcomes.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="p-card reveal">
+            <div class="p-top">
+              <h3>Toronto Budget vs Actuals Dashboard</h3>
+              <div class="p-tools">Power BI · Excel</div>
+            </div>
+            <p class="p-brief">
+              Built a dashboard to understand budget allocation, spending patterns, and where decisions could be improved.
+            </p>
+            <div class="p-more">
+              <div><strong>Problem:</strong> Budget insights were difficult to scan quickly across categories.</div>
+              <div><strong>Solution:</strong> Modeled data + created KPI views for spend, variance, and trends.</div>
+              <div><strong>Impact:</strong> Improved clarity of spending patterns and decision focus areas.</div>
+            </div>
+            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
+          </article>
+
+          <article class="p-card reveal">
+            <div class="p-top">
+              <h3>Operational Delay & Market Analytics</h3>
+              <div class="p-tools">Python · Tableau</div>
+            </div>
+            <p class="p-brief">
+              Combined datasets to analyze delay patterns, seasonality, and market signals for planning decisions.
+            </p>
+            <div class="p-more">
+              <div><strong>Problem:</strong> Hard to identify when/where delays spike and why.</div>
+              <div><strong>Solution:</strong> Cleaned + merged data, built interactive views and summaries.</div>
+              <div><strong>Impact:</strong> Clear patterns surfaced for better scheduling and strategy discussions.</div>
+            </div>
+            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
+          </article>
+
+          <article class="p-card reveal">
+            <div class="p-top">
+              <h3>Salesforce Data Quality Initiative</h3>
+              <div class="p-tools">Salesforce · Reporting</div>
+            </div>
+            <p class="p-brief">
+              Improved CRM reliability by standardizing fields, cleaning records, and strengthening reporting definitions.
+            </p>
+            <div class="p-more">
+              <div><strong>Problem:</strong> Inconsistent fields reduced trust in reporting.</div>
+              <div><strong>Solution:</strong> Standardization + validation approach + reporting structure.</div>
+              <div><strong>Impact:</strong> Stronger adoption and clearer dashboards for stakeholders.</div>
+            </div>
+            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Skills</h2>
+          <p class="subhead">Balanced across analytics, strategy, tools, and leadership.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="s-card reveal">
+            <h3>Analytics & Data</h3>
+            <div class="bars">
+              <div class="bar"><span>Power BI</span><i style="--w: 85%"></i></div>
+              <div class="bar"><span>Excel</span><i style="--w: 88%"></i></div>
+              <div class="bar"><span>SQL</span><i style="--w: 70%"></i></div>
+              <div class="bar"><span>Python</span><i style="--w: 72%"></i></div>
+              <div class="bar"><span>Tableau</span><i style="--w: 75%"></i></div>
+            </div>
+          </div>
+
+          <div class="s-card reveal">
+            <h3>Business & Strategy</h3>
+            <div class="bars">
+              <div class="bar"><span>Business Analysis</span><i style="--w: 85%"></i></div>
+              <div class="bar"><span>KPI Development</span><i style="--w: 82%"></i></div>
+              <div class="bar"><span>Process Improvement</span><i style="--w: 78%"></i></div>
+              <div class="bar"><span>Stakeholders</span><i style="--w: 86%"></i></div>
+              <div class="bar"><span>Documentation</span><i style="--w: 80%"></i></div>
+            </div>
+          </div>
+
+          <div class="s-card reveal">
+            <h3>Tools & Leadership</h3>
+            <div class="bars">
+              <div class="bar"><span>Salesforce</span><i style="--w: 76%"></i></div>
+              <div class="bar"><span>Jira / Agile</span><i style="--w: 74%"></i></div>
+              <div class="bar"><span>Communication</span><i style="--w: 88%"></i></div>
+              <div class="bar"><span>Ownership</span><i style="--w: 86%"></i></div>
+              <div class="bar"><span>Presentation</span><i style="--w: 80%"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="tiny reveal">
+          (These are intentionally calm and minimal—no gimmicks—so recruiters can scan quickly.)
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Contact</h2>
+          <p class="subhead">Let’s build insights that drive real impact.</p>
+        </div>
+
+        <div class="contact-grid">
+          <form class="form reveal" id="contactForm">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="6" placeholder="What would you like to discuss?" required></textarea>
+            </label>
+
+            <button class="btn primary full" type="submit">Send Message</button>
+            <p class="form-note" id="formNote"></p>
+          </form>
+
+          <div class="contact-card reveal">
+            <h3>Reach me directly</h3>
+            <p class="muted">
+              If you prefer email/LinkedIn, use the links below.
+            </p>
+
+            <div class="contact-links">
+              <a href="mailto:dhairyasinghal403@gmail.com" class="contact-link">
+                <span class="cl-label">Email</span>
+                <span class="cl-value">dhairyasinghal403@gmail.com</span>
+              </a>
+
+              <a href="https://linkedin.com/in/dhairya004" target="_blank" rel="noopener" class="contact-link">
+                <span class="cl-label">LinkedIn</span>
+                <span class="cl-value">linkedin.com/in/dhairya004</span>
+              </a>
+            </div>
+
+            <div class="closing">
+              “Let’s build insights that drive real impact.”
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="footer">
-    <p>Open to Business Analyst & Strategy roles</p>
-    <a href="mailto:your@email.com">Email</a> ·
-    <a href="https://linkedin.com/in/yourlinkedin" target="_blank">LinkedIn</a>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Dhairya Singhal</span>
+      <span class="footer-sep">·</span>
+      <a href="#home">Back to top</a>
+    </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
