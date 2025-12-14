@@ -2,39 +2,45 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto px-6 space-y-32">
+    <main className="bg-bg text-text">
+      <div className="max-w-6xl mx-auto px-6 space-y-32">
+        {/* ALL SECTIONS GO INSIDE HERE */}
+      </div>
+    </main>
+  );
+}
 
       {/* HERO */}
-      <section className="text-center space-y-6">
-        <h1 className="text-4xl md:text-5xl font-bold">
-          Dhairya Singhal
-        </h1>
+      <section className="text-center pt-24 space-y-6">
+  <h1 className="text-5xl font-bold tracking-tight">
+    Dhairya Singhal
+  </h1>
 
-        <p className="text-muted text-lg">
-          Business Analyst | Data & Strategy | Digital Transformation
-        </p>
+  <p className="text-muted text-lg">
+    Business Analyst · Data & Strategy · Digital Transformation
+  </p>
 
-        <p className="max-w-2xl mx-auto text-muted">
-          Turning complex data into clear insights that support leadership decisions at scale.
-        </p>
+  <p className="max-w-2xl mx-auto text-muted">
+    Turning complex data into clear insights that support leadership decisions at scale.
+  </p>
 
-        <div className="flex justify-center gap-4 pt-4">
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            className="bg-accent px-6 py-3 rounded-md font-medium"
-          >
-            Download Resume
-          </a>
+  <div className="flex justify-center gap-4 pt-6">
+    <a
+      href="/resume.pdf"
+      className="bg-accent text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition"
+    >
+      Download Resume
+    </a>
 
-          <a
-            href="#projects"
-            className="border border-white/20 px-6 py-3 rounded-md"
-          >
-            View Projects
-          </a>
-        </div>
-      </section>
+    <a
+      href="#projects"
+      className="border border-white/20 px-6 py-3 rounded-lg hover:bg-white/5 transition"
+    >
+      View Projects
+    </a>
+  </div>
+</section>
+
 
       {/* ABOUT */}
       <section className="max-w-3xl mx-auto text-center space-y-4">
@@ -46,31 +52,41 @@ export default function Home() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold text-center">Experience</h2>
+      <section id="experience" className="space-y-12">
+  <h2 className="text-3xl font-semibold text-center">
+    Experience
+  </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-card p-6 rounded-lg">
-            <h3 className="font-semibold">Beedie Executive Education</h3>
-            <p className="text-muted text-sm">Junior Business Analyst (Co-op)</p>
-            <ul className="list-disc list-inside text-muted mt-3">
-              <li>Built KPI dashboards for leadership</li>
-              <li>Analyzed enrolment & revenue data</li>
-              <li>Supported CRM and reporting workflows</li>
-            </ul>
-          </div>
+  <div className="space-y-8">
 
-          <div className="bg-card p-6 rounded-lg">
-            <h3 className="font-semibold">ProveIt</h3>
-            <p className="text-muted text-sm">Chief Project Manager</p>
-            <ul className="list-disc list-inside text-muted mt-3">
-              <li>Led data-driven product initiatives</li>
-              <li>Worked with analytics & operations teams</li>
-              <li>Drove strategic reporting decisions</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+    <div className="bg-surface p-8 rounded-xl">
+      <h3 className="text-xl font-semibold">
+        Junior Business Analyst
+      </h3>
+      <p className="text-accent">
+        Beedie Executive Education · Simon Fraser University
+      </p>
+      <ul className="mt-4 space-y-2 text-muted list-disc list-inside">
+        <li>Built KPI dashboards supporting executive decision-making</li>
+        <li>Analyzed enrolment and revenue trends across 10+ programs</li>
+        <li>Audited and cleaned 30,000+ Salesforce records</li>
+      </ul>
+    </div>
+
+    <div className="bg-surface p-8 rounded-xl">
+      <h3 className="text-xl font-semibold">
+        Chief Project Manager
+      </h3>
+      <p className="text-accent">Provelt</p>
+      <ul className="mt-4 space-y-2 text-muted list-disc list-inside">
+        <li>Led cross-functional teams delivering strategic initiatives</li>
+        <li>Implemented agile workflows improving delivery efficiency</li>
+        <li>Aligned analytics outputs with stakeholder needs</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
 
       {/* PROJECTS */}
 <section id="projects" className="space-y-12">
@@ -146,33 +162,55 @@ export default function Home() {
 </section>
 
       {/* SKILLS */}
-      <section className="space-y-6 text-center">
-        <h2 className="text-2xl font-semibold">Skills</h2>
+      <section id="skills" className="space-y-12">
+  <h2 className="text-3xl font-semibold text-center">
+    Skills
+  </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-muted">
-          <span>Power BI</span>
-          <span>Tableau</span>
-          <span>Python</span>
-          <span>Excel</span>
-          <span>SQL</span>
-          <span>Salesforce</span>
-        </div>
-      </section>
+  <div className="grid md:grid-cols-3 gap-6">
 
-      {/* CONTACT */}
-      <section className="text-center space-y-4 pb-20">
-        <h2 className="text-2xl font-semibold">Contact</h2>
-
-        <p className="text-muted">
-          Open to Business Analyst and Strategy roles.
-        </p>
-
-        <div className="flex justify-center gap-6 text-accent">
-          <a href="mailto:your@email.com">Email</a>
-          <a href="https://linkedin.com">LinkedIn</a>
-        </div>
-      </section>
-
+    <div className="bg-surface p-6 rounded-xl">
+      <h3 className="font-semibold mb-4">Analytics & BI</h3>
+      <ul className="text-muted space-y-2">
+        <li>Power BI</li>
+        <li>Tableau</li>
+        <li>Excel (Advanced)</li>
+        <li>SQL</li>
+      </ul>
     </div>
-  );
-}
+
+    <div className="bg-surface p-6 rounded-xl">
+      <h3 className="font-semibold mb-4">Business & Strategy</h3>
+      <ul className="text-muted space-y-2">
+        <li>Business Analysis</li>
+        <li>KPI Development</li>
+        <li>Process Optimization</li>
+        <li>Stakeholder Management</li>
+      </ul>
+    </div>
+
+    <div className="bg-surface p-6 rounded-xl">
+      <h3 className="font-semibold mb-4">Technical Tools</h3>
+      <ul className="text-muted space-y-2">
+        <li>Python</li>
+        <li>Salesforce</li>
+        <li>JIRA</li>
+        <li>Data Visualization</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+{/* CONTACT */}
+<section id="contact" className="text-center space-y-6 pb-24">
+  <h2 className="text-3xl font-semibold">Contact</h2>
+  <p className="text-muted">
+    Open to Business Analyst and Strategy roles.
+  </p>
+
+  <div className="flex justify-center gap-6 text-accent">
+    <a href="mailto:dhairyasinghal403@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/dhairya004">LinkedIn</a>
+  </div>
+</section>
