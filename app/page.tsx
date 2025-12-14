@@ -73,26 +73,77 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="space-y-6">
-        <h2 className="text-2xl font-semibold text-center">Projects</h2>
+<section id="projects" className="space-y-12">
+  <h2 className="text-3xl font-semibold text-center">
+    Featured Projects
+  </h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {["dashboard1.png", "dashboard2.png", "dashboard3.png"].map((img, i) => (
-            <div key={i} className="bg-card p-4 rounded-lg space-y-3">
-              <Image
-                src={`/${img}`}
-                alt="Dashboard"
-                width={400}
-                height={250}
-                className="rounded-md"
-              />
-              <p className="text-sm text-muted">
-                Interactive dashboard delivering actionable insights.
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+  <div className="grid md:grid-cols-3 gap-8">
+
+    {/* Project 1 */}
+    <div className="bg-surface p-6 rounded-xl space-y-4 hover:translate-y-[-4px] transition">
+      <h3 className="text-xl font-semibold">
+        Toronto Budget vs Actuals Dashboard
+      </h3>
+
+      <p className="text-muted text-sm leading-relaxed">
+        Built a comprehensive Power BI dashboard analyzing city budget
+        allocations and spending patterns. Cleaned and modeled 5,000+
+        budget records to track spending across 10+ major city programs,
+        uncovering underspending trends and budget concentration risks.
+      </p>
+
+      <div className="flex flex-wrap gap-2 pt-2">
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Power BI</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Excel</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Public Sector Analytics</span>
+      </div>
+    </div>
+
+    {/* Project 2 */}
+    <div className="bg-surface p-6 rounded-xl space-y-4 hover:translate-y-[-4px] transition">
+      <h3 className="text-xl font-semibold">
+        Operational Delay & Market Analytics
+      </h3>
+
+      <p className="text-muted text-sm leading-relaxed">
+        Developed an end-to-end analytics solution for aviation and
+        hospitality datasets. Cleaned and merged 10,000+ flight and
+        Airbnb records using Python, then built Tableau dashboards
+        analyzing delay patterns by airport, carrier, and season to
+        support pricing and capacity planning decisions.
+      </p>
+
+      <div className="flex flex-wrap gap-2 pt-2">
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Python</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Tableau</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Statistical Analysis</span>
+      </div>
+    </div>
+
+    {/* Project 3 */}
+    <div className="bg-surface p-6 rounded-xl space-y-4 hover:translate-y-[-4px] transition">
+      <h3 className="text-xl font-semibold">
+        Salesforce Data Quality Initiative
+      </h3>
+
+      <p className="text-muted text-sm leading-relaxed">
+        Led a Salesforce data quality improvement initiative for
+        Executive Education programs. Audited and cleansed 30,000+
+        CRM records, implemented validation rules and standardization
+        processes, and improved reporting accuracy by 40% for
+        executive-level decision-making.
+      </p>
+
+      <div className="flex flex-wrap gap-2 pt-2">
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Salesforce</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">CRM</span>
+        <span className="text-xs px-3 py-1 bg-bg rounded-full">Data Quality</span>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* SKILLS */}
       <section className="space-y-6 text-center">
