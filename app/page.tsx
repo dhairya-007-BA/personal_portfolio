@@ -1,14 +1,23 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <main className="bg-bg text-text">
-      <div className="max-w-6xl mx-auto px-6 space-y-32">
-        {/* ALL SECTIONS GO INSIDE HERE */}
-      </div>
+    <main className="min-h-screen px-6 py-24">
+      {/* HERO */}
+      <section className="text-center space-y-6">
+        <h1 className="text-5xl font-bold">Dhairya Singhal</h1>
+
+        <p className="text-lg text-gray-500">
+          Business Analyst · Data & Strategy · Digital Transformation
+        </p>
+
+        <p className="max-w-2xl mx-auto text-gray-600">
+          Turning complex data into clear insights that support leadership
+          decisions at scale.
+        </p>
+      </section>
     </main>
   );
 }
+
 
       {/* HERO */}
       <section className="text-center pt-24 space-y-6">
