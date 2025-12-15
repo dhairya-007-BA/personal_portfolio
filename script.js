@@ -6,13 +6,14 @@ document.getElementById("year").textContent = new Date().getFullYear();
 // Mobile nav toggle
 const toggle = document.querySelector(".nav-toggle");
 const links = document.querySelector(".nav-links");
+
 if (toggle && links) {
   toggle.addEventListener("click", () => {
     const isOpen = links.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(isOpen));
   });
 
-  links.querySelectorAll("a").forEach(a => {
+  links.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", () => {
       links.classList.remove("open");
       toggle.setAttribute("aria-expanded", "false");
@@ -23,33 +24,41 @@ if (toggle && links) {
 // Active section highlight
 const navLinks = Array.from(document.querySelectorAll(".nav-link"));
 const sections = navLinks
-  .map(a => document.querySelector(a.getAttribute("href")))
+  .map((a) => document.querySelector(a.getAttribute("href")))
   .filter(Boolean);
 
 const setActive = (id) => {
-  navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+  navLinks.forEach((a) =>
+    a.classList.toggle("active", a.getAttribute("href") === `#${id}`)
+  );
 };
 
-const spy = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) setActive(entry.target.id);
-  });
-}, { rootMargin: "-45% 0px -45% 0px", threshold: 0.02 });
+const spy = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  },
+  { rootMargin: "-45% 0px -45% 0px", threshold: 0.02 }
+);
 
-sections.forEach(sec => spy.observe(sec));
+sections.forEach((sec) => spy.observe(sec));
 
 // Reveal on scroll
 const reveals = document.querySelectorAll(".reveal");
-const revObs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("in");
-      revObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
+const revObs = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+        revObs.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.12 }
+);
 
-reveals.forEach(el => revObs.observe(el));
+reveals.forEach((el) => revObs.observe(el));
 
 // Contact form (client-side mailto)
 const form = document.getElementById("contactForm");
@@ -75,6 +84,7 @@ if (form) {
     );
 
     window.location.href = `mailto:dhairyasinghal403@gmail.com?subject=${subject}&body=${body}`;
+
     if (note) note.textContent = "Opening your email client…";
     form.reset();
   });

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <!-- Fixed DSBA logo -->
+  <!-- Fixed DSBA logo (polished container) -->
   <a class="logo-fixed" href="#home" aria-label="Go to top">
     <img src="logo.png" alt="DSBA Logo" />
   </a>
@@ -22,10 +22,7 @@
   <!-- Sticky Navigation -->
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
-      <a class="brand" href="#home" aria-label="Home">
-        <span class="brand-dot"></span>
-        <span class="brand-text">Dhairya Singhal</span>
-      </a>
+      <div class="nav-spacer" aria-hidden="true"></div>
 
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -42,18 +39,12 @@
     </div>
   </nav>
 
-  <!-- Main -->
   <main>
     <!-- HOME -->
     <section id="home" class="section hero">
       <div class="container">
         <div class="hero-grid">
           <div class="hero-left reveal">
-            <div class="pill">
-              <span class="pill-dot"></span>
-              <span>Business Analyst · Data & Digital Transformation</span>
-            </div>
-
             <h1 class="hero-title">
               Dhairya <span class="accent">Singhal</span>
             </h1>
@@ -65,55 +56,46 @@
             <p class="hero-intro">
               I help teams move from messy information to clear direction—through
               data storytelling, business analysis, and practical digital transformation.
-              My long-term ambition is technology consulting and strategy, where analytics
-              drives measurable outcomes.
             </p>
 
             <div class="hero-cta">
-              <a class="btn primary" href="#projects">View My Work</a>
               <a class="btn secondary" href="#contact">Get in Touch</a>
               <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-            </div>
-
-            <div class="hero-metrics">
-              <div class="metric">
-                <div class="metric-value">Data → Action</div>
-                <div class="metric-label">Dashboards, KPIs, reporting</div>
-              </div>
-              <div class="metric">
-                <div class="metric-value">Business + Tech</div>
-                <div class="metric-label">Process, systems, stakeholders</div>
-              </div>
-              <div class="metric">
-                <div class="metric-value">Leadership</div>
-                <div class="metric-label">Team, ownership, execution</div>
-              </div>
             </div>
           </div>
 
           <div class="hero-right reveal">
-            <div class="hero-card">
-              <h3>What I’m known for</h3>
-              <ul class="checklist">
-                <li>Explaining complex data in simple, leadership-ready language</li>
-                <li>Turning requirements into clean workflows and measurable KPIs</li>
-                <li>Building dashboards that answer “So what?” not just “What happened?”</li>
-              </ul>
+            <div class="hero-visual">
+              <div class="glow"></div>
+              <div class="hero-orb"></div>
 
-              <div class="quick-links">
-                <a class="mini-link" href="mailto:dhairyasinghal403@gmail.com">Email</a>
-                <span class="dot-sep">·</span>
-                <a class="mini-link" href="https://linkedin.com/in/dhairya004" target="_blank" rel="noopener">LinkedIn</a>
-                <span class="dot-sep">·</span>
-                <a class="mini-link" href="#projects">Projects</a>
-              </div>
+              <!-- Subtle analytics illustration (theme-matching, no external image needed) -->
+              <svg class="hero-illustration" viewBox="0 0 600 360" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g1" x1="0" x2="1">
+                    <stop offset="0" stop-color="rgba(47,128,237,.55)"/>
+                    <stop offset="1" stop-color="rgba(74,163,255,.35)"/>
+                  </linearGradient>
+                </defs>
 
-              <div class="note">
-                <strong>Recruiter note:</strong> This portfolio is designed to be scanned in under 60 seconds.
-              </div>
+                <rect x="52" y="70" width="220" height="140" rx="18" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)"/>
+                <rect x="300" y="90" width="248" height="160" rx="18" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)"/>
+
+                <path d="M80 182 L110 150 L142 162 L176 118 L210 132 L240 110" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="110" cy="150" r="4" fill="rgba(74,163,255,.75)"/>
+                <circle cx="176" cy="118" r="4" fill="rgba(74,163,255,.75)"/>
+                <circle cx="240" cy="110" r="4" fill="rgba(74,163,255,.75)"/>
+
+                <rect x="330" y="140" width="160" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
+                <rect x="330" y="140" width="118" height="14" rx="7" fill="url(#g1)"/>
+
+                <rect x="330" y="175" width="200" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
+                <rect x="330" y="175" width="154" height="14" rx="7" fill="url(#g1)"/>
+
+                <rect x="330" y="210" width="140" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
+                <rect x="330" y="210" width="98" height="14" rx="7" fill="url(#g1)"/>
+              </svg>
             </div>
-
-            <div class="glow"></div>
           </div>
         </div>
       </div>
@@ -134,15 +116,14 @@
           <div class="about-card reveal">
             <h3>How I work</h3>
             <p>
-              I combine business analysis with analytical thinking—starting from the “decision”
-              we need to support, then working backwards into data, metrics, and process.
-              I focus on stakeholder alignment, clean definitions, and simple reporting experiences.
+              I start from the decision we need to support, then work backwards into metrics,
+              data structure, and process—so reporting is clear, consistent, and usable.
             </p>
             <div class="tags">
               <span class="tag">Data Storytelling</span>
-              <span class="tag">Requirements</span>
-              <span class="tag">KPI Design</span>
-              <span class="tag">Process Improvement</span>
+              <span class="tag">Stakeholder Alignment</span>
+              <span class="tag">Process Mapping</span>
+              <span class="tag">Reporting & Insights</span>
             </div>
           </div>
 
@@ -151,33 +132,29 @@
             <p>
               I’m building toward technology consulting and strategy—roles where analytics,
               systems thinking, and leadership come together to drive business outcomes.
-              I enjoy work that sits at the intersection of people, process, and platforms.
             </p>
             <div class="tags">
               <span class="tag">Digital Transformation</span>
               <span class="tag">Strategy</span>
               <span class="tag">Analytics Leadership</span>
+              <span class="tag">Critical Thinking</span>
             </div>
           </div>
 
           <div class="about-card reveal">
             <h3>Education</h3>
             <p>
-              <strong>BBA — Simon Fraser University</strong><br/>
-              Focus: MIS, Operations, Business Analysis
+              <strong>Bachelors of Business Administration — Simon Fraser University</strong><br/>
+              Concentration: MIS & Operations  Certificate: Business Analysis & Decision Making
             </p>
             <div class="edu-list">
               <div class="edu-item">
-                <div class="edu-title">MIS & Systems</div>
-                <div class="edu-desc">How platforms + processes connect</div>
+                <div class="edu-title">Focus:</div>
+                <div class="edu-desc">Analytics, systems, and operational improvement</div>
               </div>
               <div class="edu-item">
-                <div class="edu-title">Operations</div>
-                <div class="edu-desc">Optimization, efficiency, execution</div>
-              </div>
-              <div class="edu-item">
-                <div class="edu-title">Business Analysis</div>
-                <div class="edu-desc">Requirements, stakeholders, outcomes</div>
+                <div class="edu-title">Strength:</div>
+                <div class="edu-desc">Turning information into clear decisions</div>
               </div>
             </div>
           </div>
@@ -199,16 +176,38 @@
             <div class="t-card">
               <div class="t-top">
                 <h3>Junior Business Analyst</h3>
-                <span class="t-meta">Beedie Executive Education · SFU</span>
+                <span class="t-meta">Beedie Executive Education · SFU · May 2025 – December 2025</span>
               </div>
               <ul class="bullets">
-                <li>Supported KPI reporting and dashboarding for program performance</li>
-                <li>Improved CRM reporting workflows to increase data clarity for stakeholders</li>
-                <li>Partnered with teams to align definitions, metrics, and reporting needs</li>
+                <li>Delivered KPI insights to support program and revenue decisions</li>
+                <li>Designed dashboards tracking enrollment, revenue, and satisfaction across 10+ programs</li>
+                <li>Audited and cleansed 30,000+ Salesforce records to improve reporting trust</li>
+              </ul>
+              <div class="exp-tags">
+                <span class="exp-tag">Salesforce</span>
+                <span class="exp-tag">Power BI</span>
+                <span class="exp-tag">MS Excel</span>
+                <span class="exp-tag">Stakeholder Management</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="t-item reveal">
+            <div class="t-dot"></div>
+            <div class="t-card">
+              <div class="t-top">
+                <h3>Chief Project Manager</h3>
+                <span class="t-meta">ProveIt Hiring Incorporation · Apr 2025 – Present</span>
+              </div>
+              <ul class="bullets">
+                <li>Led cross-functional execution across multiple initiatives with clear milestones</li>
+                <li>Introduced sprint cycles and roadmap planning to improve delivery speed</li>
+                <li>Improved stakeholder alignment through structured updates and prioritization</li>
               </ul>
               <div class="chips">
-                <span class="chip">Dashboards</span>
-                <span class="chip">CRM / Salesforce</span>
+                <span class="chip">Execution</span>
+                <span class="chip">Planning</span>
+                <span class="chip">Communication</span>
                 <span class="chip">Stakeholders</span>
               </div>
             </div>
@@ -218,66 +217,22 @@
             <div class="t-dot"></div>
             <div class="t-card">
               <div class="t-top">
-                <h3>Project Manager</h3>
-                <span class="t-meta">Product / Growth Initiatives</span>
-              </div>
-              <ul class="bullets">
-                <li>Owned execution across cross-functional teams with clear milestones and outcomes</li>
-                <li>Translated business needs into deliverables, documentation, and reporting</li>
-                <li>Improved delivery clarity with structured communication and prioritization</li>
-              </ul>
-              <div class="chips">
-                <span class="chip">Execution</span>
-                <span class="chip">Planning</span>
-                <span class="chip">Communication</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="t-item reveal">
-            <div class="t-dot"></div>
-            <div class="t-card">
-              <div class="t-top">
                 <h3>Data Research Assistant</h3>
-                <span class="t-meta">Research · Market & Industry</span>
+                <span class="t-meta">Beedie School of Business · May 2024 – Aug 2024</span>
               </div>
               <ul class="bullets">
-                <li>Structured datasets for analysis and reporting, focusing on accuracy and usability</li>
-                <li>Created repeatable research workflows for consistent outputs</li>
-                <li>Delivered insights in clean formats stakeholders can act on quickly</li>
+                <li>Researched and verified 1,000+ alumni records weekly using LinkedIn + company sources</li>
+                <li>Created clean Excel outputs and repeatable workflows for stakeholders</li>
+                <li>Supported outreach strategy through structured prospect research</li>
               </ul>
               <div class="chips">
+                <span class="chip">Data Validation</span>
+                <span class="chip">Excel</span>
                 <span class="chip">Research</span>
-                <span class="chip">Data Quality</span>
-                <span class="chip">Synthesis</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="t-item reveal">
-            <div class="t-dot"></div>
-            <div class="t-card">
-              <div class="t-top">
-                <h3>Leadership</h3>
-                <span class="t-meta">AIESEC · Enactus (Selected)</span>
-              </div>
-              <ul class="bullets">
-                <li>Led teams through planning, delivery, and stakeholder communication</li>
-                <li>Built confidence presenting strategy and outcomes to diverse audiences</li>
-                <li>Strengthened leadership through ownership, iteration, and accountability</li>
-              </ul>
-              <div class="chips">
-                <span class="chip">Leadership</span>
-                <span class="chip">Presentation</span>
-                <span class="chip">Teamwork</span>
               </div>
             </div>
           </div>
         </div>
-
-        <p class="note-wide reveal">
-          Want the exact bullet points/metrics from your resume? Drop them in and I’ll tighten wording to “consulting-ready” format.
-        </p>
       </div>
     </section>
 
@@ -286,57 +241,65 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Projects</h2>
-          <p class="subhead">Problem → Solution → Impact. Built to show how I think and deliver outcomes.</p>
+          <p class="subhead">A few projects that show how I analyze problems and deliver outcomes.</p>
         </div>
 
         <div class="project-grid">
           <article class="p-card reveal">
             <div class="p-top">
-              <h3>Toronto Budget vs Actuals Dashboard</h3>
-              <div class="p-tools">Power BI · Excel</div>
+              <h3>Global Startup & Unicorn Analysis</h3>
+              <div class="p-tools">Personal Project</div>
             </div>
             <p class="p-brief">
-              Built a dashboard to understand budget allocation, spending patterns, and where decisions could be improved.
+              Analyzed startup and unicorn trends to surface patterns across regions, sectors, and growth signals.
             </p>
-            <div class="p-more">
-              <div><strong>Problem:</strong> Budget insights were difficult to scan quickly across categories.</div>
-              <div><strong>Solution:</strong> Modeled data + created KPI views for spend, variance, and trends.</div>
-              <div><strong>Impact:</strong> Improved clarity of spending patterns and decision focus areas.</div>
+            <div class="p-tags">
+              <span class="ptag">Python</span>
+              <span class="ptag">SQL</span>
             </div>
-            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
           </article>
 
           <article class="p-card reveal">
             <div class="p-top">
-              <h3>Operational Delay & Market Analytics</h3>
-              <div class="p-tools">Python · Tableau</div>
+              <h3>Financial Analytics Dashboard</h3>
+              <div class="p-tools">Personal Project</div>
             </div>
             <p class="p-brief">
-              Combined datasets to analyze delay patterns, seasonality, and market signals for planning decisions.
+              Built a dashboard to track financial performance and summarize key insights for decision-making.
             </p>
-            <div class="p-more">
-              <div><strong>Problem:</strong> Hard to identify when/where delays spike and why.</div>
-              <div><strong>Solution:</strong> Cleaned + merged data, built interactive views and summaries.</div>
-              <div><strong>Impact:</strong> Clear patterns surfaced for better scheduling and strategy discussions.</div>
+            <div class="p-tags">
+              <span class="ptag">Tableau</span>
+              <span class="ptag">SQL</span>
             </div>
-            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
           </article>
 
-          <article class="p-card reveal">
-            <div class="p-top">
-              <h3>Salesforce Data Quality Initiative</h3>
-              <div class="p-tools">Salesforce · Reporting</div>
-            </div>
-            <p class="p-brief">
-              Improved CRM reliability by standardizing fields, cleaning records, and strengthening reporting definitions.
-            </p>
-            <div class="p-more">
-              <div><strong>Problem:</strong> Inconsistent fields reduced trust in reporting.</div>
-              <div><strong>Solution:</strong> Standardization + validation approach + reporting structure.</div>
-              <div><strong>Impact:</strong> Stronger adoption and clearer dashboards for stakeholders.</div>
-            </div>
-            <a class="p-link" href="#contact">Ask for a walkthrough →</a>
-          </article>
+          <!-- Toronto card + OUTSIDE arrow linking to LinkedIn projects -->
+          <div class="project-wrap reveal">
+            <article class="p-card">
+              <div class="p-top">
+                <h3>Toronto Budget vs Actuals Dashboard</h3>
+                <div class="p-tools">Personal Project</div>
+              </div>
+              <p class="p-brief">
+                Built a dashboard to understand budget allocation, spending patterns, and where decisions could be improved.
+              </p>
+              <div class="p-tags">
+                <span class="ptag">Power BI</span>
+                <span class="ptag">Excel</span>
+              </div>
+            </article>
+
+            <a
+              class="project-arrow"
+              href="https://www.linkedin.com/in/dhairya004/details/projects/"
+              target="_blank"
+              rel="noopener"
+              aria-label="View projects on LinkedIn"
+              title="View projects on LinkedIn"
+            >
+              →
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -349,44 +312,34 @@
           <p class="subhead">Balanced across analytics, strategy, tools, and leadership.</p>
         </div>
 
-        <div class="skills-grid">
+        <!-- IMPORTANT: two main sections, aligned as 2 columns -->
+        <div class="skills-grid skills-2col">
           <div class="s-card reveal">
             <h3>Analytics & Data</h3>
             <div class="bars">
-              <div class="bar"><span>Power BI</span><i style="--w: 85%"></i></div>
-              <div class="bar"><span>Excel</span><i style="--w: 88%"></i></div>
-              <div class="bar"><span>SQL</span><i style="--w: 70%"></i></div>
-              <div class="bar"><span>Python</span><i style="--w: 72%"></i></div>
-              <div class="bar"><span>Tableau</span><i style="--w: 75%"></i></div>
+              <div class="bar"><span>Excel</span><i style="--w: 90%"></i></div>
+              <div class="bar"><span>Power BI</span><i style="--w: 80%"></i></div>
+              <div class="bar"><span>Tableau</span><i style="--w: 80%"></i></div>
+              <div class="bar"><span>Python</span><i style="--w: 70%"></i></div>
+              <div class="bar"><span>Jira</span><i style="--w: 70%"></i></div>
+              <div class="bar"><span>Salesforce</span><i style="--w: 65%"></i></div>
+              <div class="bar"><span>SQL</span><i style="--w: 50%"></i></div>
             </div>
           </div>
 
           <div class="s-card reveal">
-            <h3>Business & Strategy</h3>
+            <h3>Business & Leadership</h3>
             <div class="bars">
               <div class="bar"><span>Business Analysis</span><i style="--w: 85%"></i></div>
-              <div class="bar"><span>KPI Development</span><i style="--w: 82%"></i></div>
-              <div class="bar"><span>Process Improvement</span><i style="--w: 78%"></i></div>
-              <div class="bar"><span>Stakeholders</span><i style="--w: 86%"></i></div>
+              <div class="bar"><span>Stakeholders</span><i style="--w: 80%"></i></div>
               <div class="bar"><span>Documentation</span><i style="--w: 80%"></i></div>
-            </div>
-          </div>
-
-          <div class="s-card reveal">
-            <h3>Tools & Leadership</h3>
-            <div class="bars">
-              <div class="bar"><span>Salesforce</span><i style="--w: 76%"></i></div>
-              <div class="bar"><span>Jira / Agile</span><i style="--w: 74%"></i></div>
-              <div class="bar"><span>Communication</span><i style="--w: 88%"></i></div>
-              <div class="bar"><span>Ownership</span><i style="--w: 86%"></i></div>
               <div class="bar"><span>Presentation</span><i style="--w: 80%"></i></div>
+              <div class="bar"><span>KPI Development</span><i style="--w: 70%"></i></div>
+              <div class="bar"><span>Process Improvement</span><i style="--w: 60%"></i></div>
+              <div class="bar"><span>Agile Methodologies</span><i style="--w: 30%"></i></div>
             </div>
           </div>
         </div>
-
-        <p class="tiny reveal">
-          (These are intentionally calm and minimal—no gimmicks—so recruiters can scan quickly.)
-        </p>
       </div>
     </section>
 
@@ -395,20 +348,22 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Contact</h2>
-          <p class="subhead">Let’s build insights that drive real impact.</p>
+          <p class="subhead">Reach out - happy to chat strategy, data, or systems.</p>
         </div>
 
         <div class="contact-grid">
           <form class="form reveal" id="contactForm">
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" placeholder="Your name" required />
-            </label>
+            <div class="form-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
 
-            <label>
-              <span>Email</span>
-              <input type="email" name="email" placeholder="you@example.com" required />
-            </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required />
+              </label>
+            </div>
 
             <label>
               <span>Message</span>
@@ -420,20 +375,23 @@
           </form>
 
           <div class="contact-card reveal">
-            <h3>Reach me directly</h3>
-            <p class="muted">
-              If you prefer email/LinkedIn, use the links below.
-            </p>
+            <h3>Find me</h3>
 
-            <div class="contact-links">
-              <a href="mailto:dhairyasinghal403@gmail.com" class="contact-link">
-                <span class="cl-label">Email</span>
-                <span class="cl-value">dhairyasinghal403@gmail.com</span>
+            <div class="socials">
+              <a class="social-btn" href="mailto:dhairyasinghal403@gmail.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
               </a>
 
-              <a href="https://linkedin.com/in/dhairya004" target="_blank" rel="noopener" class="contact-link">
-                <span class="cl-label">LinkedIn</span>
-                <span class="cl-value">linkedin.com/in/dhairya004</span>
+              <a class="social-btn" href="https://linkedin.com/in/dhairya004" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.5 9.5V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M6.5 6.5h0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M10.5 20v-6.2c0-1.9 1.1-3.1 2.8-3.1 1.6 0 2.7 1.1 2.7 3.1V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M10.5 10.2V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
               </a>
             </div>
 
