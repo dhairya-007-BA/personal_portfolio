@@ -283,62 +283,72 @@ img{max-width:100%;display:block}
   font-weight: 600;
 }
 
-/* ================= PROJECTS ================= */
-.project-grid{
-  margin-top:22px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-.p-card{
-  border:1px solid var(--border);
-  background:rgba(16,28,47,.45);
-  border-radius:var(--radius2);
-  padding:18px;
-  transition:.2s ease;
-}
-.p-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.p-tools{color:var(--accent2);font-size:.9rem;font-weight:600}
-.p-brief{margin-top:10px;color:var(--muted)}
-.p-tags{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
-.ptag{
-  font-size:.86rem;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.04);
-}
-
-/* Added: project detail lines + links (keeps same card style) */
-.p-detail{
-  margin-top: 10px;
-  color: var(--muted);
+/* ================= PROJECTS CAROUSEL (keeps same card design) ================= */
+.projects-carousel{
+  margin-top: 22px;
+  position: relative;
   display: grid;
-  gap: 8px;
+  grid-template-columns: 44px 1fr 44px; /* arrows + viewport */
+  align-items: center;
+  gap: 12px;
 }
-.p-detail strong{color: var(--muted2);}
 
-.p-links{
-  margin-top: 14px;
+.pc-viewport{
+  overflow: hidden;
+}
+
+.pc-track{
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 16px; /* matches your grid gap */
+  transition: transform .35s ease;
+  will-change: transform;
 }
-.plink{
-  font-size: .88rem;
-  font-weight: 700;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(47,128,237,.25);
-  background: rgba(47,128,237,.10);
-  color: var(--muted2);
+
+/* card sizing: 3 visible at once (desktop) */
+.pc-track .p-card{
+  flex: 0 0 calc((100% - 32px) / 3); /* 2 gaps * 16px = 32px */
+}
+
+/* arrow buttons (keeps your existing style language) */
+.pc-arrow{
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  display: grid;
+  place-items: center;
   transition: .18s ease;
+  cursor: pointer;
 }
-.plink:hover{
+
+.pc-arrow:hover{
   transform: translateY(-2px);
-  background: rgba(47,128,237,.16);
-  border-color: rgba(47,128,237,.35);
+  border-color: rgba(47,128,237,.25);
 }
+
+.pc-arrow:disabled{
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pc-arrow svg{
+  width: 20px;
+  height: 20px;
+  color: var(--muted2);
+}
+
+/* Responsive: show 1 project at a time on smaller screens (keeps your responsive pattern) */
+@media(max-width:980px){
+  .projects-carousel{
+    grid-template-columns: 44px 1fr 44px;
+  }
+  .pc-track .p-card{
+    flex: 0 0 100%;
+  }
+}
+
 
 /* ================= SKILLS ================= */
 .skills-grid{
