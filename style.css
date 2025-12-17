@@ -13,6 +13,9 @@
   --radius: 16px;
   --radius2: 22px;
   --max: 1100px;
+
+  /* carousel */
+  --pc-gap: 16px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -270,6 +273,8 @@ img{max-width:100%;display:block}
   color: var(--muted2);
   font-weight: 600;
 }
+
+/* chips container */
 .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
 .chip{
   font-size:.85rem;
@@ -281,28 +286,62 @@ img{max-width:100%;display:block}
   font-weight: 600;
 }
 
-/* ================= PROJECT CAROUSEL (keeps 3-column look) ================= */
-.project-carousel{
-  margin-top: 22px;
+/* ================= PROJECTS (CAROUSEL) ================= */
+/* Keep card design exactly same; only layout becomes sliding row */
+.projects-carousel{
   position: relative;
+  margin-top: 22px;
+
+  /* 3 cards desktop, 1 card mobile (overridden in media) */
+  --pc-cards: 3;
 }
 
+/* viewport hides overflow; track slides */
 .pc-viewport{
   overflow: hidden;
-  border-radius: var(--radius2);
+  border-radius: 0; /* do not change section look */
+  touch-action: pan-y;
 }
 
-/* Track becomes a horizontal row; cards keep same style */
 .pc-track{
   display: flex;
-  gap: 16px;
+  gap: var(--pc-gap);
   will-change: transform;
   transform: translate3d(0,0,0);
-  transition: transform .55s ease;
-  padding: 0; /* clean */
 }
 
-/* Card style preserved (same as before) */
+/* Every card keeps the same exact visuals */
+.pc-track .p-card{
+  flex: 0 0 calc((100% - (var(--pc-gap) * (var(--pc-cards) - 1))) / var(--pc-cards));
+}
+
+/* arrows outside the row */
+.pc-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(16,28,47,.55);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: .18s ease;
+  z-index: 2;
+}
+.pc-arrow:hover{
+  transform: translateY(-50%) translateY(-2px);
+  border-color: rgba(47,128,237,.25);
+}
+.pc-arrow svg{width: 22px;height: 22px;color: var(--muted2)}
+
+.pc-prev{ left: -64px; }
+.pc-next{ right: -64px; }
+
+/* Project card styles (UNCHANGED visually) */
 .p-card{
   border:1px solid var(--border);
   background:rgba(16,28,47,.45);
@@ -312,15 +351,6 @@ img{max-width:100%;display:block}
 }
 .p-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .p-tools{color:var(--accent2);font-size:.9rem;font-weight:600}
-
-.p-detail{
-  margin-top: 10px;
-  color: var(--muted);
-  display: grid;
-  gap: 8px;
-}
-.p-detail strong{color: var(--muted2);}
-
 .p-tags{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
 .ptag{
   font-size:.86rem;
@@ -329,6 +359,14 @@ img{max-width:100%;display:block}
   border:1px solid rgba(255,255,255,.07);
   background:rgba(255,255,255,.04);
 }
+.p-detail{
+  margin-top: 10px;
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+}
+.p-detail strong{color: var(--muted2);}
+
 .p-links{
   margin-top: 14px;
   display: flex;
@@ -349,41 +387,6 @@ img{max-width:100%;display:block}
   transform: translateY(-2px);
   background: rgba(47,128,237,.16);
   border-color: rgba(47,128,237,.35);
-}
-
-/* Desktop: 3 cards visible */
-.pc-track .p-card{
-  flex: 0 0 calc((100% - 32px) / 3);
-}
-
-/* Clean arrows (sit at ends of the visible row) */
-.pc-arrow{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(16,28,47,.55);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  z-index: 5;
-  transition: .18s ease;
-}
-.pc-arrow:hover{
-  transform: translateY(-50%) translateY(-2px);
-  border-color: rgba(47,128,237,.25);
-}
-.pc-arrow svg{width:22px;height:22px;color:var(--muted2)}
-.pc-arrow.prev{left: 10px;}
-.pc-arrow.next{right: 10px;}
-
-.projects-note{
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: .95rem;
 }
 
 /* ================= SKILLS ================= */
@@ -428,7 +431,6 @@ img{max-width:100%;display:block}
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   border-radius:999px;
 }
-
 .skills-note{
   margin-top: 12px;
   color: var(--muted);
@@ -509,11 +511,11 @@ img{max-width:100%;display:block}
   .skills-grid.skills-2col{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
 
-  /* Tablet: 2 cards visible */
-  .pc-track .p-card{
-    flex: 0 0 calc((100% - 16px) / 2);
-  }
+  /* arrows closer so they don't go off-screen */
+  .pc-prev{ left: -18px; }
+  .pc-next{ right: -18px; }
 }
+
 @media(max-width:760px){
   .nav-toggle{display:block}
   .nav-links{
@@ -531,17 +533,10 @@ img{max-width:100%;display:block}
   .nav-links.open{display:flex}
   .logo-fixed{top:12px;left:12px}
 
-  /* Mobile: 1 card visible + easier swipe */
-  .pc-track .p-card{
-    flex: 0 0 100%;
-  }
+  /* mobile projects: 1 card */
+  .projects-carousel{ --pc-cards: 1; }
 
-  /* Slightly smaller arrows so they don't feel heavy on mobile */
-  .pc-arrow{
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-  }
-  .pc-arrow.prev{left: 8px;}
-  .pc-arrow.next{right: 8px;}
+  /* keep arrows usable on mobile */
+  .pc-prev{ left: 6px; }
+  .pc-next{ right: 6px; }
 }

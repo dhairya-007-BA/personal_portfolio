@@ -90,122 +90,240 @@ if (form) {
   });
 }
 
-/* ================= PROJECTS: AUTO-SWIPE CAROUSEL (3 visible desktop) ================= */
-const track = document.getElementById("projectsTrack");
-const prevBtn = document.querySelector(".pc-arrow.prev");
-const nextBtn = document.querySelector(".pc-arrow.next");
+/* =========================
+   Projects Carousel
+   - Shows 3 desktop, 1 mobile (CSS var)
+   - Moves by 1 card
+   - Autoplay every 5s
+   - Infinite loop with clones
+   - Swipe support on mobile
+========================= */
 
-let currentIndex = 0;
-let autoTimer = null;
+function getVisibleCards(carouselEl) {
+  const styles = getComputedStyle(carouselEl);
+  const v = styles.getPropertyValue("--pc-cards").trim();
+  const n = Number(v);
+  return Number.isFinite(n) && n > 0 ? n : 3;
+}
 
-const getVisibleCount = () => {
-  // Matches your CSS breakpoints (no design guessing)
-  if (window.matchMedia("(max-width: 760px)").matches) return 1;
-  if (window.matchMedia("(max-width: 980px)").matches) return 2;
-  return 3;
-};
+function createProjectsCarousel(carouselEl) {
+  const viewport = carouselEl.querySelector(".pc-viewport");
+  const track = carouselEl.querySelector(".pc-track");
+  const prevBtn = carouselEl.querySelector(".pc-prev");
+  const nextBtn = carouselEl.querySelector(".pc-next");
 
-const getStepSize = () => {
-  const firstCard = track?.querySelector(".p-card");
-  if (!firstCard) return 0;
+  if (!viewport || !track) return;
 
-  const cardW = firstCard.getBoundingClientRect().width;
-  const gap = parseFloat(getComputedStyle(track).gap || "16");
-  return cardW + gap;
-};
+  let originalCards = Array.from(track.children);
+  if (originalCards.length === 0) return;
 
-const clampIndex = (idx) => {
-  const cards = track ? Array.from(track.querySelectorAll(".p-card")) : [];
-  const visible = getVisibleCount();
-  const maxIndex = Math.max(0, cards.length - visible);
+  let visible = getVisibleCards(carouselEl);
+  let index = visible; // start after prepended clones
+  let isAnimating = false;
+  let autoplayTimer = null;
+  let interval = Number(carouselEl.getAttribute("data-interval")) || 5000;
+  let autoplay = carouselEl.getAttribute("data-autoplay") === "true";
 
-  if (idx < 0) return maxIndex;        // loop to end
-  if (idx > maxIndex) return 0;        // loop to start
-  return idx;
-};
+  // Swipe
+  let startX = 0;
+  let currentX = 0;
+  let isPointerDown = false;
 
-const updateCarousel = (idx, smooth = true) => {
-  if (!track) return;
+  const getGapPx = () => {
+    const gap = getComputedStyle(track).gap || getComputedStyle(track).columnGap || "0px";
+    const px = parseFloat(gap);
+    return Number.isFinite(px) ? px : 0;
+  };
 
-  const step = getStepSize();
-  currentIndex = clampIndex(idx);
+  const slideSize = () => {
+    const firstCard = track.querySelector(".p-card");
+    if (!firstCard) return 0;
+    return firstCard.getBoundingClientRect().width + getGapPx();
+  };
 
-  // If step can't be measured yet, skip transform
-  if (!step) return;
+  const setTranslate = (x, withTransition = true) => {
+    track.style.transition = withTransition ? "transform 420ms ease" : "none";
+    track.style.transform = `translate3d(${x}px,0,0)`;
+  };
 
-  if (!smooth) track.style.transition = "none";
-  track.style.transform = `translate3d(${-currentIndex * step}px, 0, 0)`;
-  if (!smooth) {
-    // Re-enable transition next frame
-    requestAnimationFrame(() => {
-      track.style.transition = "transform .55s ease";
+  const cleanupClones = () => {
+    track.querySelectorAll("[data-clone='true']").forEach((n) => n.remove());
+  };
+
+  const buildClones = () => {
+    cleanupClones();
+    originalCards = Array.from(track.children);
+
+    // visible could change after resize
+    visible = getVisibleCards(carouselEl);
+
+    // clone last "visible" to the front
+    const tail = originalCards.slice(-visible).map((n) => {
+      const c = n.cloneNode(true);
+      c.setAttribute("data-clone", "true");
+      return c;
+    });
+
+    // clone first "visible" to the end
+    const head = originalCards.slice(0, visible).map((n) => {
+      const c = n.cloneNode(true);
+      c.setAttribute("data-clone", "true");
+      return c;
+    });
+
+    tail.forEach((n) => track.prepend(n));
+    head.forEach((n) => track.append(n));
+
+    // reset index to first real slide
+    index = visible;
+
+    // jump to correct position without animation
+    const x = -index * slideSize();
+    setTranslate(x, false);
+  };
+
+  const goTo = (newIndex, opts = {}) => {
+    const { animate = true } = opts;
+    if (isAnimating && animate) return;
+
+    const step = slideSize();
+    if (!step) return;
+
+    isAnimating = animate;
+    index = newIndex;
+
+    const x = -index * step;
+    setTranslate(x, animate);
+  };
+
+  const next = () => goTo(index + 1, { animate: true });
+  const prev = () => goTo(index - 1, { animate: true });
+
+  const startAutoplay = () => {
+    if (!autoplay) return;
+    stopAutoplay();
+    autoplayTimer = window.setInterval(() => {
+      next();
+    }, interval);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      window.clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  const onTransitionEnd = () => {
+    const totalOriginal = originalCards.length; // real cards only
+    const lastRealIndex = visible + totalOriginal - 1;
+
+    // if moved into the appended clones (past last real)
+    if (index > lastRealIndex) {
+      index = visible; // jump back to first real
+      const x = -index * slideSize();
+      setTranslate(x, false);
+    }
+
+    // if moved into the prepended clones (before first real)
+    if (index < visible) {
+      index = lastRealIndex; // jump to last real
+      const x = -index * slideSize();
+      setTranslate(x, false);
+    }
+
+    isAnimating = false;
+  };
+
+  // Buttons
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      stopAutoplay();
+      prev();
+      startAutoplay();
     });
   }
-};
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      stopAutoplay();
+      next();
+      startAutoplay();
+    });
+  }
 
-const goNext = () => updateCarousel(currentIndex + 1);
-const goPrev = () => updateCarousel(currentIndex - 1);
+  // Pause on hover/focus (desktop)
+  carouselEl.addEventListener("mouseenter", stopAutoplay);
+  carouselEl.addEventListener("mouseleave", startAutoplay);
+  carouselEl.addEventListener("focusin", stopAutoplay);
+  carouselEl.addEventListener("focusout", startAutoplay);
 
-const stopAuto = () => {
-  if (autoTimer) clearInterval(autoTimer);
-  autoTimer = null;
-};
-
-const startAuto = () => {
-  stopAuto();
-  autoTimer = setInterval(() => {
-    goNext();
-  }, 5000); // 5 seconds as requested
-};
-
-if (track) {
-  // Buttons
-  if (prevBtn) prevBtn.addEventListener("click", () => { goPrev(); startAuto(); });
-  if (nextBtn) nextBtn.addEventListener("click", () => { goNext(); startAuto(); });
-
-  // Pause on hover (desktop)
-  track.addEventListener("mouseenter", stopAuto);
-  track.addEventListener("mouseleave", startAuto);
-
-  // Touch swipe (mobile + touch devices)
-  let startX = 0;
-  let isDown = false;
-
-  track.addEventListener("touchstart", (e) => {
-    stopAuto();
-    isDown = true;
-    startX = e.touches[0].clientX;
-  }, { passive: true });
-
-  track.addEventListener("touchend", (e) => {
-    if (!isDown) return;
-    isDown = false;
-
-    const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
-    const dx = endX - startX;
-
-    if (Math.abs(dx) > 40) {
-      if (dx < 0) goNext();
-      else goPrev();
-    }
-    startAuto();
-  }, { passive: true });
-
-  // Keyboard accessibility (optional but clean)
-  document.addEventListener("keydown", (e) => {
-    const inProjects = window.location.hash === "#projects";
-    if (!inProjects) return;
-
-    if (e.key === "ArrowRight") { goNext(); startAuto(); }
-    if (e.key === "ArrowLeft") { goPrev(); startAuto(); }
+  // Swipe support (pointer)
+  viewport.addEventListener("pointerdown", (e) => {
+    isPointerDown = true;
+    startX = e.clientX;
+    currentX = startX;
+    stopAutoplay();
+    track.style.transition = "none";
+    viewport.setPointerCapture?.(e.pointerId);
   });
 
-  // Handle resize (keep alignment correct)
+  viewport.addEventListener("pointermove", (e) => {
+    if (!isPointerDown) return;
+    currentX = e.clientX;
+
+    const delta = currentX - startX;
+    const base = -index * slideSize();
+    setTranslate(base + delta, false);
+  });
+
+  const endPointer = () => {
+    if (!isPointerDown) return;
+    isPointerDown = false;
+
+    const delta = currentX - startX;
+    const threshold = 60;
+
+    // snap decision
+    if (delta <= -threshold) {
+      next();
+    } else if (delta >= threshold) {
+      prev();
+    } else {
+      goTo(index, { animate: true });
+    }
+
+    startAutoplay();
+  };
+
+  viewport.addEventListener("pointerup", endPointer);
+  viewport.addEventListener("pointercancel", endPointer);
+  viewport.addEventListener("pointerleave", endPointer);
+
+  // Transition end
+  track.addEventListener("transitionend", onTransitionEnd);
+
+  // Resize handling (rebuild clones & keep position clean)
+  let resizeTimer = null;
   window.addEventListener("resize", () => {
-    updateCarousel(currentIndex, false);
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      // rebuild clones based on new visible count/width
+      cleanupClones();
+
+      // restore real cards in track (remove clones left behind)
+      const onlyReal = Array.from(track.children).filter((n) => n.getAttribute("data-clone") !== "true");
+      track.innerHTML = "";
+      onlyReal.forEach((n) => track.append(n));
+      originalCards = Array.from(track.children);
+
+      buildClones();
+    }, 140);
   });
 
   // Init
-  updateCarousel(0, false);
-  startAuto();
+  buildClones();
+  startAutoplay();
 }
+
+// initialize (only if section exists)
+document.querySelectorAll(".projects-carousel").forEach(createProjectsCarousel);

@@ -244,33 +244,37 @@
           <p class="subhead">A few projects that show how I analyze problems and deliver outcomes.</p>
         </div>
 
-        <!-- Carousel wrapper (keeps 3-column look; slides horizontally) -->
-        <div class="project-carousel reveal" aria-label="Projects carousel">
-          <button class="pc-arrow prev" type="button" aria-label="Previous projects">
+        <!-- Carousel wrapper (design stays the same; only behavior changes) -->
+        <div class="projects-carousel reveal" data-autoplay="true" data-interval="5000">
+          <!-- Left arrow (outside row) -->
+          <button class="pc-arrow pc-prev" type="button" aria-label="Previous project">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
 
-          <div class="pc-viewport">
-            <div class="pc-track" id="projectsTrack">
-
+          <!-- Viewport -->
+          <div class="pc-viewport" aria-label="Projects carousel">
+            <div class="pc-track">
               <!-- 1 -->
               <article class="p-card">
                 <div class="p-top">
                   <h3>Global Unicorn Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Comparing unicorn growth signals across regions and sectors is slow and inconsistent.</p>
-                  <p><strong>What I built:</strong> A Power BI dashboard to explore unicorn trends and key drivers interactively.</p>
-                  <p><strong>Impact:</strong> Faster filtering by geography, sector, and timeline to spot patterns quickly.</p>
+                  <p><strong>Problem:</strong> Hard to compare unicorn growth signals across regions, industries, and funding stages.</p>
+                  <p><strong>What I built:</strong> An interactive Power BI dashboard to explore unicorn trends and key drivers.</p>
+                  <p><strong>Impact:</strong> A reusable view to quickly filter insights by geography, sector, and timeline.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Power BI</span>
                   <span class="ptag">SQL</span>
                   <span class="ptag">Python</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://app.powerbi.com/links/EZC03XhtyF?ctid=04e8677e-c989-47b9-8619-d83d5a5f6c67&pbi_source=linkShare" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -282,16 +286,19 @@
                   <h3>Financial Analytics Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Financial insights get buried in spreadsheets and static reporting.</p>
-                  <p><strong>What I built:</strong> A Tableau KPI dashboard to track performance and trends.</p>
-                  <p><strong>Impact:</strong> Clearer decision-making through interactive filtering and KPI views.</p>
+                  <p><strong>Problem:</strong> Financial performance insights can get buried in spreadsheets and static summaries.</p>
+                  <p><strong>What I built:</strong> A Tableau dashboard to track financial KPIs and surface key performance trends.</p>
+                  <p><strong>Impact:</strong> Faster, clearer analysis for decision-making using interactive filtering and KPIs.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Tableau</span>
                   <span class="ptag">SQL</span>
                   <span class="ptag">MS Excel</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/FinancialDashboard_17602495838830/FinancialDashboard" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -303,16 +310,19 @@
                   <h3>Airline Delay Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Airline delays are hard to break down by airport, carrier, and time.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard analyzing delay drivers with interactive views.</p>
-                  <p><strong>Impact:</strong> Quick visibility into hotspots and root causes across key dimensions.</p>
+                  <p><strong>Problem:</strong> Airline delays are complex—hard to spot patterns by airport, carrier, and time.</p>
+                  <p><strong>What I built:</strong> A Tableau dashboard analyzing delay drivers with interactive breakdowns.</p>
+                  <p><strong>Impact:</strong> Quick visibility into delay hotspots and root causes across key dimensions.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Tableau</span>
                   <span class="ptag">Python</span>
                   <span class="ptag">MS Excel</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/AirlineDelayDashboard_17499218739400/Dashboard1" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -324,16 +334,19 @@
                   <h3>SQL Practice Project</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Needed a structured way to strengthen SQL fundamentals with realistic queries.</p>
-                  <p><strong>What I built:</strong> A SQLite-based practice environment with query exercises in VS Code.</p>
-                  <p><strong>Impact:</strong> Faster iteration and better query confidence through consistent hands-on reps.</p>
+                  <p><strong>Problem:</strong> SQL skills grow fastest with consistent, hands-on query practice on real schemas.</p>
+                  <p><strong>What I built:</strong> A SQLite + VS Code practice environment for writing and testing real-world queries.</p>
+                  <p><strong>Impact:</strong> Improved query fluency across joins, aggregations, and subqueries using repeatable exercises.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">SQLite</span>
                   <span class="ptag">SQL</span>
                   <span class="ptag">VS Code</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://github.com/dhairya-007-BA/SQLPractice" target="_blank" rel="noopener">View Project</a>
                 </div>
@@ -345,16 +358,19 @@
                   <h3>Toronto Budget vs Actuals Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Budget variance is hard to interpret quickly across categories and time.</p>
-                  <p><strong>What I built:</strong> A budget vs actuals dashboard to surface variance drivers clearly.</p>
-                  <p><strong>Impact:</strong> Faster visibility into overspending/underspending trends for planning.</p>
+                  <p><strong>Problem:</strong> Budget vs actual variance is hard to monitor without a clean variance view.</p>
+                  <p><strong>What I built:</strong> A dashboard-style view to compare budgets vs actuals and highlight variance drivers.</p>
+                  <p><strong>Impact:</strong> Clear visibility into overspending/underspending areas to support better planning.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Power BI</span>
                   <span class="ptag">DAX</span>
                   <span class="ptag">MS Excel</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://media.licdn.com/dms/image/v2/D562DAQGv3ckbNvCfVA/profile-treasury-image-shrink_8192_8192/B56Zg9edFlHMAg-/0/1753378050799?e=1766610000&v=beta&t=lwEmoShLRxKjkm2-HWMY1LMkjqE29LIhdXavNXt-7Yo" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -366,16 +382,19 @@
                   <h3>Sales Funnel Performance Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Funnel leakage and win-rate issues are hard to see without a single view.</p>
-                  <p><strong>What I built:</strong> A Tableau funnel dashboard tracking stages, conversions, and outcomes.</p>
-                  <p><strong>Impact:</strong> Faster identification of bottlenecks and stage-level performance gaps.</p>
+                  <p><strong>Problem:</strong> Funnel conversion bottlenecks are hard to find without stage-by-stage visibility.</p>
+                  <p><strong>What I built:</strong> A Tableau dashboard to monitor funnel stages, conversion rates, and drop-offs.</p>
+                  <p><strong>Impact:</strong> Faster identification of pipeline bottlenecks and stage performance trends.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Tableau</span>
                   <span class="ptag">KPI Dashboards</span>
                   <span class="ptag">Analytics</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/SalesFunnelPerformanceDashboard/SalesFunnelPerformanceDashboard" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -387,16 +406,19 @@
                   <h3>Spotify Trend Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Music listening trends are noisy without clean segmentation and filters.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard exploring trends by artist/genre and time.</p>
-                  <p><strong>Impact:</strong> Easier exploration of patterns using interactive slicing and drill-downs.</p>
+                  <p><strong>Problem:</strong> Streaming patterns are noisy—hard to spot what’s trending without good filters.</p>
+                  <p><strong>What I built:</strong> A Tableau dashboard exploring artists, genres, and listening behavior trends.</p>
+                  <p><strong>Impact:</strong> Quick exploration of trend shifts using interactive slicing and filtering.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Tableau</span>
                   <span class="ptag">Data Visualization</span>
-                  <span class="ptag">Insights</span>
+                  <span class="ptag">Trends</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/Book1_17484586916350/Dashboard1" target="_blank" rel="noopener">View Dashboard</a>
                 </div>
@@ -408,16 +430,19 @@
                   <h3>Airbnb Data Visualization</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Pricing and demand drivers are unclear without structured analysis and visuals.</p>
-                  <p><strong>What I built:</strong> A Python analysis pipeline with charts to explore Airbnb market patterns.</p>
-                  <p><strong>Impact:</strong> Clear visuals connecting price, location, reviews, and occupancy signals.</p>
+                  <p><strong>Problem:</strong> Pricing and occupancy signals vary by location and listing type—easy to misread.</p>
+                  <p><strong>What I built:</strong> A Python analysis + visuals to explore pricing patterns and demand drivers.</p>
+                  <p><strong>Impact:</strong> Clearer understanding of how location, reviews, and features relate to performance.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">Python</span>
                   <span class="ptag">Pandas</span>
-                  <span class="ptag">Matplotlib</span>
+                  <span class="ptag">Visualization</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://github.com/dhairya-007-BA/Airbnb-Business-Data-Analysis-Project" target="_blank" rel="noopener">View Project</a>
                 </div>
@@ -429,33 +454,33 @@
                   <h3>Superstore Sales Dashboard</h3>
                   <div class="p-tools">Personal Project</div>
                 </div>
+
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Sales performance is hard to compare by region, segment, and product.</p>
-                  <p><strong>What I built:</strong> An Excel dashboard with pivots and charts for sales and profitability views.</p>
-                  <p><strong>Impact:</strong> Faster reporting and clearer insight into revenue drivers.</p>
+                  <p><strong>Problem:</strong> Sales insights get buried without a consistent KPI view by region and product.</p>
+                  <p><strong>What I built:</strong> An Excel dashboard using pivots/charts to analyze sales and profitability.</p>
+                  <p><strong>Impact:</strong> Faster reporting and clearer insight into revenue drivers and segments.</p>
                 </div>
+
                 <div class="p-tags">
                   <span class="ptag">MS Excel</span>
                   <span class="ptag">Pivot Tables</span>
                   <span class="ptag">Dashboards</span>
                 </div>
+
                 <div class="p-links">
                   <a class="plink" href="https://github.com/dhairya-007-BA/Superstore-Dashboard/blob/main/Superstore.xlsx" target="_blank" rel="noopener">View File</a>
                 </div>
               </article>
-
             </div>
           </div>
 
-          <button class="pc-arrow next" type="button" aria-label="Next projects">
+          <!-- Right arrow (outside row) -->
+          <button class="pc-arrow pc-next" type="button" aria-label="Next project">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>
-
-        <!-- (Optional) small helper text for swipe on mobile; kept subtle -->
-        <p class="projects-note reveal">Tip: On mobile, swipe left/right to browse projects.</p>
       </div>
     </section>
 
