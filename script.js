@@ -90,82 +90,122 @@ if (form) {
   });
 }
 
-/* ================= PROJECTS CAROUSEL (3 at a time) ================= */
-(function initProjectsCarousel(){
-  const track = document.getElementById("projectsTrack");
+/* ================= PROJECTS: AUTO-SWIPE CAROUSEL (3 visible desktop) ================= */
+const track = document.getElementById("projectsTrack");
+const prevBtn = document.querySelector(".pc-arrow.prev");
+const nextBtn = document.querySelector(".pc-arrow.next");
+
+let currentIndex = 0;
+let autoTimer = null;
+
+const getVisibleCount = () => {
+  // Matches your CSS breakpoints (no design guessing)
+  if (window.matchMedia("(max-width: 760px)").matches) return 1;
+  if (window.matchMedia("(max-width: 980px)").matches) return 2;
+  return 3;
+};
+
+const getStepSize = () => {
+  const firstCard = track?.querySelector(".p-card");
+  if (!firstCard) return 0;
+
+  const cardW = firstCard.getBoundingClientRect().width;
+  const gap = parseFloat(getComputedStyle(track).gap || "16");
+  return cardW + gap;
+};
+
+const clampIndex = (idx) => {
+  const cards = track ? Array.from(track.querySelectorAll(".p-card")) : [];
+  const visible = getVisibleCount();
+  const maxIndex = Math.max(0, cards.length - visible);
+
+  if (idx < 0) return maxIndex;        // loop to end
+  if (idx > maxIndex) return 0;        // loop to start
+  return idx;
+};
+
+const updateCarousel = (idx, smooth = true) => {
   if (!track) return;
 
-  const prevBtn = document.querySelector(".pc-prev");
-  const nextBtn = document.querySelector(".pc-next");
-  const cards = Array.from(track.querySelectorAll(".p-card"));
+  const step = getStepSize();
+  currentIndex = clampIndex(idx);
 
-  let index = 0;
+  // If step can't be measured yet, skip transform
+  if (!step) return;
 
-  const getVisibleCount = () => (window.innerWidth <= 980 ? 1 : 3);
-
-  const getStep = () => {
-    // distance to move = card width + gap (16px)
-    const first = cards[0];
-    if (!first) return 0;
-    const cardW = first.getBoundingClientRect().width;
-    return cardW + 16;
-  };
-
-  const clampIndex = () => {
-    const visible = getVisibleCount();
-    const maxIndex = Math.max(0, cards.length - visible);
-    index = Math.min(Math.max(index, 0), maxIndex);
-  };
-
-  const update = () => {
-    clampIndex();
-    const step = getStep();
-    track.style.transform = `translateX(${-index * step}px)`;
-
-    const visible = getVisibleCount();
-    const maxIndex = Math.max(0, cards.length - visible);
-
-    if (prevBtn) prevBtn.disabled = index === 0;
-    if (nextBtn) nextBtn.disabled = index === maxIndex;
-  };
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      index -= 1;
-      update();
+  if (!smooth) track.style.transition = "none";
+  track.style.transform = `translate3d(${-currentIndex * step}px, 0, 0)`;
+  if (!smooth) {
+    // Re-enable transition next frame
+    requestAnimationFrame(() => {
+      track.style.transition = "transform .55s ease";
     });
   }
+};
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      index += 1;
-      update();
-    });
-  }
+const goNext = () => updateCarousel(currentIndex + 1);
+const goPrev = () => updateCarousel(currentIndex - 1);
 
-  // Keyboard accessibility when carousel is on screen
-  window.addEventListener("keydown", (e) => {
-    const projectsSection = document.getElementById("projects");
-    if (!projectsSection) return;
+const stopAuto = () => {
+  if (autoTimer) clearInterval(autoTimer);
+  autoTimer = null;
+};
 
-    const rect = projectsSection.getBoundingClientRect();
-    const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
-    if (!onScreen) return;
+const startAuto = () => {
+  stopAuto();
+  autoTimer = setInterval(() => {
+    goNext();
+  }, 5000); // 5 seconds as requested
+};
 
-    if (e.key === "ArrowLeft") {
-      index -= 1;
-      update();
+if (track) {
+  // Buttons
+  if (prevBtn) prevBtn.addEventListener("click", () => { goPrev(); startAuto(); });
+  if (nextBtn) nextBtn.addEventListener("click", () => { goNext(); startAuto(); });
+
+  // Pause on hover (desktop)
+  track.addEventListener("mouseenter", stopAuto);
+  track.addEventListener("mouseleave", startAuto);
+
+  // Touch swipe (mobile + touch devices)
+  let startX = 0;
+  let isDown = false;
+
+  track.addEventListener("touchstart", (e) => {
+    stopAuto();
+    isDown = true;
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener("touchend", (e) => {
+    if (!isDown) return;
+    isDown = false;
+
+    const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+    const dx = endX - startX;
+
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) goNext();
+      else goPrev();
     }
-    if (e.key === "ArrowRight") {
-      index += 1;
-      update();
-    }
+    startAuto();
+  }, { passive: true });
+
+  // Keyboard accessibility (optional but clean)
+  document.addEventListener("keydown", (e) => {
+    const inProjects = window.location.hash === "#projects";
+    if (!inProjects) return;
+
+    if (e.key === "ArrowRight") { goNext(); startAuto(); }
+    if (e.key === "ArrowLeft") { goPrev(); startAuto(); }
   });
 
-  // Recalc on resize (keeps 3 visible on desktop, 1 on mobile)
+  // Handle resize (keep alignment correct)
   window.addEventListener("resize", () => {
-    update();
+    updateCarousel(currentIndex, false);
   });
 
-  update();
-})();
+  // Init
+  updateCarousel(0, false);
+  startAuto();
+}
