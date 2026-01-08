@@ -33,6 +33,12 @@ body{
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
+/* Accessibility: clear focus ring (doesn't change layout) */
+:focus-visible{
+  outline: 2px solid rgba(74,163,255,.8);
+  outline-offset: 3px;
+}
+
 .container{
   width: min(var(--max), 100% - 40px);
   margin: 0 auto;
@@ -81,9 +87,19 @@ img{max-width:100%;display:block}
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--border);
-  background: rgba(11,18,32,.62);
-  backdrop-filter: blur(12px);
+
+  /* fallback for browsers/devices without backdrop-filter */
+  background: rgba(11,18,32,.85);
 }
+
+/* only apply blur if supported (same look where supported) */
+@supports (backdrop-filter: blur(12px)){
+  .nav{
+    background: rgba(11,18,32,.62);
+    backdrop-filter: blur(12px);
+  }
+}
+
 .nav-inner{
   width: min(var(--max), 100% - 40px);
   margin: 0 auto;
@@ -287,19 +303,15 @@ img{max-width:100%;display:block}
 }
 
 /* ================= PROJECTS (CAROUSEL) ================= */
-/* Keep card design exactly same; only layout becomes sliding row */
 .projects-carousel{
   position: relative;
   margin-top: 22px;
-
-  /* 3 cards desktop, 1 card mobile (overridden in media) */
   --pc-cards: 3;
 }
 
-/* viewport hides overflow; track slides */
 .pc-viewport{
   overflow: hidden;
-  border-radius: 0; /* do not change section look */
+  border-radius: 0;
   touch-action: pan-y;
 }
 
@@ -310,12 +322,10 @@ img{max-width:100%;display:block}
   transform: translate3d(0,0,0);
 }
 
-/* Every card keeps the same exact visuals */
 .pc-track .p-card{
   flex: 0 0 calc((100% - (var(--pc-gap) * (var(--pc-cards) - 1))) / var(--pc-cards));
 }
 
-/* arrows outside the row */
 .pc-arrow{
   position: absolute;
   top: 50%;
@@ -341,7 +351,7 @@ img{max-width:100%;display:block}
 .pc-prev{ left: -64px; }
 .pc-next{ right: -64px; }
 
-/* Project card styles (UNCHANGED visually) */
+/* Project card styles */
 .p-card{
   border:1px solid var(--border);
   background:rgba(16,28,47,.45);
@@ -510,8 +520,6 @@ img{max-width:100%;display:block}
   .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
   .skills-grid.skills-2col{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
-
-  /* arrows closer so they don't go off-screen */
   .pc-prev{ left: -18px; }
   .pc-next{ right: -18px; }
 }
@@ -533,10 +541,18 @@ img{max-width:100%;display:block}
   .nav-links.open{display:flex}
   .logo-fixed{top:12px;left:12px}
 
-  /* mobile projects: 1 card */
   .projects-carousel{ --pc-cards: 1; }
-
-  /* keep arrows usable on mobile */
   .pc-prev{ left: 6px; }
   .pc-next{ right: 6px; }
+}
+
+/* ================= REDUCE MOTION ================= */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+  .btn:hover{transform:none}
+  .p-card{transition:none}
+  .p-card:hover{transform:none}
+  .pc-track{transition:none !important}
 }
