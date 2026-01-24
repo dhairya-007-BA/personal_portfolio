@@ -1,9 +1,7 @@
-// Smooth UX + minimal interactions only
-
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Year
+  // Footer year
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
@@ -22,16 +20,12 @@
       toggle.setAttribute("aria-expanded", String(isOpen));
     });
 
-    links.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", closeMenu);
-    });
+    links.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
 
-    // Escape to close
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
 
-    // Outside click to close
     document.addEventListener("click", (e) => {
       const target = e.target;
       if (!target) return;
@@ -39,7 +33,7 @@
     });
   }
 
-  // Active section highlight (safe: ignore non-hash links)
+  // Active section highlight (hash links only)
   const navLinks = Array.from(document.querySelectorAll(".nav-link"));
   const sectionEls = navLinks
     .map((a) => a.getAttribute("href"))
@@ -63,11 +57,10 @@
       },
       { rootMargin: "-45% 0px -45% 0px", threshold: 0.02 }
     );
-
     sectionEls.forEach((sec) => spy.observe(sec));
   }
 
-  // Reveal on scroll (skip if reduced motion)
+  // Reveal on scroll
   if (!reduceMotion) {
     const reveals = document.querySelectorAll(".reveal");
     const revObs = new IntersectionObserver(
@@ -81,14 +74,46 @@
       },
       { threshold: 0.12 }
     );
-
     reveals.forEach((el) => revObs.observe(el));
   } else {
-    // ensure visible
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
   }
 
-  // Contact form (client-side mailto) + better validation
+  // ✅ Skills bars fill on scroll (CSS uses var(--w))
+  const skillsSection = document.querySelector("#skills");
+  if (skillsSection) {
+    const bars = Array.from(skillsSection.querySelectorAll(".bar i"));
+
+    if (reduceMotion) {
+      bars.forEach((bar) => {
+        const w = bar.getAttribute("data-w");
+        if (w) bar.style.setProperty("--w", w);
+      });
+    } else {
+      bars.forEach((bar) => bar.style.setProperty("--w", "0%"));
+
+      const skillsObs = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            bars.forEach((bar, i) => {
+              const w = bar.getAttribute("data-w");
+              if (!w) return;
+              window.setTimeout(() => bar.style.setProperty("--w", w), i * 110);
+            });
+
+            obs.disconnect();
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      skillsObs.observe(skillsSection);
+    }
+  }
+
+  // Contact form (mailto)
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
 
@@ -113,26 +138,16 @@
       }
 
       const subject = encodeURIComponent(`Portfolio Inquiry — ${name}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`
-      );
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`);
 
-      // mailto can fail if no email client configured; still okay
       window.location.href = `mailto:dhairyasinghal403@gmail.com?subject=${subject}&body=${body}`;
-
       if (note) note.textContent = "Opening your email client…";
       form.reset();
     });
   }
 
   /* =========================
-     Projects Carousel
-     - Shows 3 desktop, 1 mobile (CSS var)
-     - Moves by 1 card
-     - Autoplay every 5s (disabled if reduced motion)
-     - Infinite loop with clones
-     - Swipe support on mobile
-     - Clones are aria-hidden + not tabbable (a11y)
+     Projects Carousel (fixed sizing + single-click links)
   ========================= */
 
   function getVisibleCards(carouselEl) {
@@ -147,18 +162,17 @@
     const track = carouselEl.querySelector(".pc-track");
     const prevBtn = carouselEl.querySelector(".pc-prev");
     const nextBtn = carouselEl.querySelector(".pc-next");
-
     if (!viewport || !track) return;
 
     let originalCards = Array.from(track.children);
-    if (originalCards.length === 0) return;
+    if (!originalCards.length) return;
 
     let visible = getVisibleCards(carouselEl);
-    let index = visible; // start after prepended clones
+    let index = visible;
     let isAnimating = false;
     let autoplayTimer = null;
 
-    const interval = Number(carouselEl.getAttribute("data-interval")) || 5000;
+    const interval = Number(carouselEl.getAttribute("data-interval")) || 3000;
     let autoplay = carouselEl.getAttribute("data-autoplay") === "true";
     if (reduceMotion) autoplay = false;
 
@@ -166,6 +180,7 @@
     let startX = 0;
     let currentX = 0;
     let isPointerDown = false;
+    let isDragging = false;
 
     const getGapPx = () => {
       const cs = getComputedStyle(track);
@@ -191,17 +206,15 @@
 
     const markCloneA11y = (node) => {
       node.setAttribute("aria-hidden", "true");
-      node.querySelectorAll("a, button, input, textarea, select").forEach((el) => {
-        el.setAttribute("tabindex", "-1");
-      });
+      node.querySelectorAll("a,button,input,textarea,select").forEach((el) => el.setAttribute("tabindex", "-1"));
     };
 
     const buildClones = () => {
       cleanupClones();
-      originalCards = Array.from(track.children);
+
+      originalCards = Array.from(track.children).filter((n) => n.getAttribute("data-clone") !== "true");
       visible = getVisibleCards(carouselEl);
 
-      // clone last "visible" to the front
       const tail = originalCards.slice(-visible).map((n) => {
         const c = n.cloneNode(true);
         c.setAttribute("data-clone", "true");
@@ -209,7 +222,6 @@
         return c;
       });
 
-      // clone first "visible" to the end
       const head = originalCards.slice(0, visible).map((n) => {
         const c = n.cloneNode(true);
         c.setAttribute("data-clone", "true");
@@ -220,26 +232,18 @@
       tail.forEach((n) => track.prepend(n));
       head.forEach((n) => track.append(n));
 
-      // reset index to first real slide
       index = visible;
-
-      // jump to correct position without animation
-      const x = -index * slideSize();
-      setTranslate(x, false);
+      setTranslate(-index * slideSize(), false);
     };
 
-    const goTo = (newIndex, opts = {}) => {
-      const { animate = true } = opts;
+    const goTo = (newIndex, { animate = true } = {}) => {
       if (isAnimating && animate) return;
-
       const step = slideSize();
       if (!step) return;
 
       isAnimating = animate;
       index = newIndex;
-
-      const x = -index * step;
-      setTranslate(x, animate);
+      setTranslate(-index * step, animate);
     };
 
     const next = () => goTo(index + 1, { animate: true });
@@ -248,7 +252,7 @@
     const startAutoplay = () => {
       if (!autoplay) return;
       stopAutoplay();
-      autoplayTimer = window.setInterval(() => next(), interval);
+      autoplayTimer = window.setInterval(next, interval);
     };
 
     const stopAutoplay = () => {
@@ -259,53 +263,38 @@
     };
 
     const onTransitionEnd = () => {
-      const totalOriginal = originalCards.length; // real cards only
+      const totalOriginal = originalCards.length;
       const lastRealIndex = visible + totalOriginal - 1;
 
-      // moved into appended clones
       if (index > lastRealIndex) {
         index = visible;
-        const x = -index * slideSize();
-        setTranslate(x, false);
+        setTranslate(-index * slideSize(), false);
       }
-
-      // moved into prepended clones
       if (index < visible) {
         index = lastRealIndex;
-        const x = -index * slideSize();
-        setTranslate(x, false);
+        setTranslate(-index * slideSize(), false);
       }
-
       isAnimating = false;
     };
 
-    // Buttons
-    if (prevBtn) {
-      prevBtn.addEventListener("click", () => {
-        stopAutoplay();
-        prev();
-        startAutoplay();
-      });
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener("click", () => {
-        stopAutoplay();
-        next();
-        startAutoplay();
-      });
-    }
+    if (prevBtn) prevBtn.addEventListener("click", () => { stopAutoplay(); prev(); startAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener("click", () => { stopAutoplay(); next(); startAutoplay(); });
 
-    // Pause on hover/focus (desktop)
     carouselEl.addEventListener("mouseenter", stopAutoplay);
     carouselEl.addEventListener("mouseleave", startAutoplay);
     carouselEl.addEventListener("focusin", stopAutoplay);
     carouselEl.addEventListener("focusout", startAutoplay);
 
-    // Swipe support
+    // ✅ Don’t capture pointerdown on links/buttons (so View Dashboard opens on single click)
     viewport.addEventListener("pointerdown", (e) => {
+      const target = e.target;
+      if (target && target.closest("a,button")) return;
+
       isPointerDown = true;
+      isDragging = false;
       startX = e.clientX;
       currentX = startX;
+
       stopAutoplay();
       track.style.transition = "none";
       viewport.setPointerCapture?.(e.pointerId);
@@ -313,9 +302,11 @@
 
     viewport.addEventListener("pointermove", (e) => {
       if (!isPointerDown) return;
-      currentX = e.clientX;
 
+      currentX = e.clientX;
       const delta = currentX - startX;
+      if (Math.abs(delta) > 8) isDragging = true;
+
       const base = -index * slideSize();
       setTranslate(base + delta, false);
     });
@@ -327,9 +318,13 @@
       const delta = currentX - startX;
       const threshold = 60;
 
-      if (delta <= -threshold) next();
-      else if (delta >= threshold) prev();
-      else goTo(index, { animate: true });
+      if (isDragging) {
+        if (delta <= -threshold) next();
+        else if (delta >= threshold) prev();
+        else goTo(index, { animate: true });
+      } else {
+        goTo(index, { animate: true });
+      }
 
       startAutoplay();
     };
@@ -340,21 +335,10 @@
 
     track.addEventListener("transitionend", onTransitionEnd);
 
-    // Resize rebuild (debounced)
     let resizeTimer = null;
     window.addEventListener("resize", () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
-        cleanupClones();
-
-        // restore only real nodes
-        const onlyReal = Array.from(track.children).filter(
-          (n) => n.getAttribute("data-clone") !== "true"
-        );
-        track.innerHTML = "";
-        onlyReal.forEach((n) => track.append(n));
-        originalCards = Array.from(track.children);
-
         buildClones();
       }, 140);
     });
