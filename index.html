@@ -5,33 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Dhairya Singhal | Business Analyst</title>
-  <meta name="description" content="Dhairya Singhal — Business Analyst focused on data storytelling, digital transformation, and strategy. Portfolio with projects, experience, skills, and contact." />
+  <meta name="description" content="Dhairya Singhal - Business Analyst focused on data storytelling, dashboard strategy, and practical digital transformation. Explore experience, projects, and skills." />
+  <meta name="theme-color" content="#f4efe2" />
 
-  <!-- Canonical (update to your live domain) -->
-  <link rel="canonical" href="https://YOURDOMAIN.com/" />
+  <link rel="canonical" href="https://dhairya-007-ba.github.io/personal_portfolio/" />
 
-  <!-- Open Graph (update URLs + image) -->
   <meta property="og:title" content="Dhairya Singhal | Business Analyst" />
-  <meta property="og:description" content="Business Analyst focused on data storytelling, digital transformation, and strategy." />
+  <meta property="og:description" content="Portfolio showcasing data-driven business analysis, dashboard development, and strategy-focused execution." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://YOURDOMAIN.com/" />
-  <meta property="og:image" content="https://YOURDOMAIN.com/og-image.png" />
+  <meta property="og:url" content="https://dhairya-007-ba.github.io/personal_portfolio/" />
+  <meta property="og:image" content="https://dhairya-007-ba.github.io/personal_portfolio/logo.png" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dhairya Singhal | Business Analyst" />
+  <meta name="twitter:description" content="Data storytelling, business analysis, and digital transformation portfolio." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dhairya Singhal",
+    "jobTitle": "Business Analyst",
+    "url": "https://dhairya-007-ba.github.io/personal_portfolio/",
+    "email": "mailto:dhairyasinghal403@gmail.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/dhairya004",
+      "https://github.com/dhairya-007-BA"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Simon Fraser University"
+    }
+  }
+  </script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
   <!-- Fixed DSBA logo (polished container) -->
   <a class="logo-fixed" href="#home" aria-label="Go to top">
-    <img src="logo.png" alt="DSBA Logo" />
+    <img src="logo.png" alt="DSBA Logo" loading="eager" decoding="async" />
   </a>
 
   <!-- Sticky Navigation -->
@@ -50,11 +72,12 @@
         <a href="#projects" class="nav-link">Projects</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <a href="resume.pdf" class="nav-link nav-link-cta" target="_blank" rel="noopener noreferrer">Resume</a>
       </div>
     </div>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- HOME -->
     <section id="home" class="section hero">
       <div class="container">
@@ -65,50 +88,84 @@
             </h1>
 
             <p class="hero-tagline">
-              Turning Data into Decisions. Bridging Business and Technology.
+              Turning data into decisions for
+              <span class="role-rotator" data-roles="supply chains,growth teams,stakeholder groups,program leaders">supply chains</span>.
             </p>
 
             <p class="hero-intro">
-              I help teams move from messy information to clear direction—through
-              data storytelling, business analysis, and practical digital transformation.
+              I help teams move from messy information to clear direction through
+              business analysis, dashboard strategy, and practical digital transformation.
             </p>
 
+            <div class="hero-chips">
+              <span class="chip">Power BI + Tableau</span>
+              <span class="chip">KPI Architecture</span>
+              <span class="chip">Stakeholder Alignment</span>
+            </div>
+
             <div class="hero-cta">
-              <a class="btn secondary" href="#contact">Get in Touch</a>
+              <a class="btn primary" href="#contact">Get in Touch</a>
               <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+            </div>
+
+            <div class="hero-metrics reveal">
+              <article class="metric">
+                <span class="metric-value" data-count="10" data-suffix="+">10+</span>
+                <span class="metric-label">Power BI reports standardized</span>
+              </article>
+              <article class="metric">
+                <span class="metric-value" data-count="30000" data-suffix="+">30,000+</span>
+                <span class="metric-label">Salesforce records audited and cleaned</span>
+              </article>
+              <article class="metric">
+                <span class="metric-value" data-count="1000" data-suffix="+">1,000+</span>
+                <span class="metric-label">Records validated weekly in research ops</span>
+              </article>
             </div>
           </div>
 
           <div class="hero-right reveal">
             <div class="hero-visual">
-              <div class="glow"></div>
-              <div class="hero-orb"></div>
+              <div class="hero-dashboard">
+                <article class="dash-card dash-card-wide">
+                  <div class="dash-head">
+                    Supply Chain Snapshot
+                    <span>decision-support view</span>
+                  </div>
 
-              <svg class="hero-illustration" viewBox="0 0 600 360" aria-hidden="true">
-                <defs>
-                  <linearGradient id="g1" x1="0" x2="1">
-                    <stop offset="0" stop-color="rgba(47,128,237,.55)"/>
-                    <stop offset="1" stop-color="rgba(74,163,255,.35)"/>
-                  </linearGradient>
-                </defs>
+                  <svg class="dash-line" viewBox="0 0 320 118" aria-hidden="true">
+                    <polyline points="14,92 65,62 104,74 154,36 198,54 243,30 296,40" />
+                    <circle cx="65" cy="62" r="4"></circle>
+                    <circle cx="154" cy="36" r="4"></circle>
+                    <circle cx="243" cy="30" r="4"></circle>
+                  </svg>
 
-                <rect x="52" y="70" width="220" height="140" rx="18" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)"/>
-                <rect x="300" y="90" width="248" height="160" rx="18" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)"/>
+                  <div class="dash-kpis">
+                    <div>
+                      <span>OTIF</span>
+                      <strong>96.4%</strong>
+                    </div>
+                    <div>
+                      <span>Lead Time</span>
+                      <strong>-12%</strong>
+                    </div>
+                    <div>
+                      <span>Report Trust</span>
+                      <strong>High</strong>
+                    </div>
+                  </div>
+                </article>
 
-                <path d="M80 182 L110 150 L142 162 L176 118 L210 132 L240 110" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
-                <circle cx="110" cy="150" r="4" fill="rgba(74,163,255,.75)"/>
-                <circle cx="176" cy="118" r="4" fill="rgba(74,163,255,.75)"/>
-                <circle cx="240" cy="110" r="4" fill="rgba(74,163,255,.75)"/>
+                <article class="dash-card">
+                  <h4>Reporting Health</h4>
+                  <ul class="dash-bars">
+                    <li><span>Standardized reports</span><i style="--p: 84%"></i></li>
+                    <li><span>Dashboard adoption</span><i style="--p: 76%"></i></li>
+                    <li><span>Data quality confidence</span><i style="--p: 88%"></i></li>
+                  </ul>
+                </article>
+              </div>
 
-                <rect x="330" y="140" width="160" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
-                <rect x="330" y="140" width="118" height="14" rx="7" fill="url(#g1)"/>
-
-                <rect x="330" y="175" width="200" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
-                <rect x="330" y="175" width="154" height="14" rx="7" fill="url(#g1)"/>
-
-                <rect x="330" y="210" width="140" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
-                <rect x="330" y="210" width="98" height="14" rx="7" fill="url(#g1)"/>
-              </svg>
             </div>
           </div>
         </div>
@@ -121,8 +178,8 @@
         <div class="section-head reveal">
           <h2>About</h2>
           <p class="subhead">
-            I believe data should empower people—not overwhelm them.
-            My role is to translate complexity into clarity so teams can move faster with confidence.
+            I believe analytics should reduce ambiguity, not create more noise.
+            My work sits at the intersection of systems, strategy, and execution.
           </p>
         </div>
 
@@ -130,9 +187,14 @@
           <div class="about-card reveal">
             <h3>How I work</h3>
             <p>
-              I start from the decision we need to support, then work backwards into metrics,
-              data structure, and process—so reporting is clear, consistent, and usable.
+              I start from the decision we need to support, then work backward into metrics,
+              structure, and process so teams can act quickly and confidently.
             </p>
+            <ol class="about-flow">
+              <li>Define the decision and stakeholder need</li>
+              <li>Build clear KPIs and reporting logic</li>
+              <li>Deliver outputs teams actually use</li>
+            </ol>
             <div class="tags">
               <span class="tag">Data Storytelling</span>
               <span class="tag">Stakeholder Alignment</span>
@@ -142,24 +204,24 @@
           </div>
 
           <div class="about-card reveal">
-            <h3>Where I’m headed</h3>
+            <h3>What I deliver</h3>
             <p>
-              I’m building toward technology consulting and strategy—roles where analytics,
-              systems thinking, and leadership come together to drive business outcomes.
+              I turn fragmented operational data into dashboards, summaries, and recommendations
+              that support leadership discussions and day-to-day execution.
             </p>
             <div class="tags">
-              <span class="tag">Digital Transformation</span>
-              <span class="tag">Strategy</span>
-              <span class="tag">Analytics Leadership</span>
-              <span class="tag">Critical Thinking</span>
+              <span class="tag">Dashboard Design</span>
+              <span class="tag">Decision Support</span>
+              <span class="tag">Cross-functional Delivery</span>
+              <span class="tag">Operational Analytics</span>
             </div>
           </div>
 
           <div class="about-card reveal">
             <h3>Education</h3>
             <p>
-              <strong>Bachelors of Business Administration — Simon Fraser University</strong><br/>
-              Concentration: MIS & Operations  Certificate: Business Analysis & Decision Making
+              <strong>Bachelor of Business Administration - Simon Fraser University</strong><br/>
+              Concentration: MIS and Operations | Certificate: Business Analysis and Decision Making
             </p>
             <div class="edu-list">
               <div class="edu-item">
@@ -182,6 +244,21 @@
         <div class="section-head reveal">
           <h2>Experience</h2>
           <p class="subhead">Impact-focused roles across business analysis, project leadership, and data work.</p>
+        </div>
+
+        <div class="impact-strip reveal">
+          <div class="impact-item">
+            <span class="impact-kicker">Current focus</span>
+            <p>Building supply-chain reporting and dashboard governance at MineSense.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-kicker">Execution style</span>
+            <p>Translate stakeholder requests into usable metrics, then ship fast.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-kicker">Career direction</span>
+            <p>Technology consulting and strategy roles grounded in data execution.</p>
+          </div>
         </div>
 
         <div class="timeline">
@@ -287,10 +364,13 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Projects</h2>
-          <p class="subhead">A few projects that show how I analyze problems and deliver outcomes.</p>
+          <p class="subhead">A selected portfolio of dashboards and analyses built around business decisions.</p>
         </div>
 
-        <!-- interval changed to 3000ms -->
+        <p class="projects-note reveal">
+          Each project follows the same structure: define the decision, build the right view, then make insights actionable.
+        </p>
+
         <div class="projects-carousel reveal" data-autoplay="true" data-interval="3000">
           <button class="pc-arrow pc-prev" type="button" aria-label="Previous project">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -565,7 +645,7 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Contact</h2>
-          <p class="subhead">Reach out - happy to chat strategy, data, or systems.</p>
+          <p class="subhead">Open to conversations on analytics, business analysis, and strategy-focused roles.</p>
         </div>
 
         <div class="contact-grid">
@@ -588,11 +668,14 @@
             </label>
 
             <button class="btn primary full" type="submit">Send Message</button>
-            <p class="form-note" id="formNote"></p>
+            <p class="form-note" id="formNote" aria-live="polite"></p>
           </form>
 
           <div class="contact-card reveal">
             <h3>Find me</h3>
+            <p class="contact-intro">
+              Based in Vancouver, BC. I am currently open to analyst and strategy opportunities where data execution drives business outcomes.
+            </p>
 
             <div class="socials">
               <a class="social-btn" href="mailto:dhairyasinghal403@gmail.com" aria-label="Email">
@@ -629,6 +712,11 @@
                   />
                 </svg>
               </a>
+            </div>
+
+            <div class="contact-meta">
+              <a href="mailto:dhairyasinghal403@gmail.com">dhairyasinghal403@gmail.com</a>
+              <a href="https://www.linkedin.com/in/dhairya004" target="_blank" rel="noopener noreferrer">linkedin.com/in/dhairya004</a>
             </div>
 
             <div class="closing">

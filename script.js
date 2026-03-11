@@ -5,6 +5,50 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+  // Top scroll progress
+  const progressEl = document.querySelector(".scroll-progress");
+  if (progressEl) {
+    const updateProgress = () => {
+      const doc = document.documentElement;
+      const maxScroll = doc.scrollHeight - doc.clientHeight;
+      const ratio = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const clamped = Math.max(0, Math.min(1, ratio));
+      progressEl.style.transform = `scaleX(${clamped})`;
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+  }
+
+  // Hero role rotator
+  const rotator = document.querySelector(".role-rotator");
+  if (rotator) {
+    const roles = String(rotator.getAttribute("data-roles") || "")
+      .split(",")
+      .map((x) => x.trim())
+      .filter(Boolean);
+
+    if (roles.length) rotator.textContent = roles[0];
+
+    if (!reduceMotion && roles.length > 1) {
+      let i = 0;
+      window.setInterval(() => {
+        i = (i + 1) % roles.length;
+        if (typeof rotator.animate === "function") {
+          rotator.animate(
+            [
+              { opacity: 0.35, transform: "translateY(4px)" },
+              { opacity: 1, transform: "translateY(0)" }
+            ],
+            { duration: 260, easing: "ease-out" }
+          );
+        }
+        rotator.textContent = roles[i];
+      }, 2000);
+    }
+  }
+
   // Mobile nav toggle
   const toggle = document.querySelector(".nav-toggle");
   const links = document.querySelector(".nav-links");
@@ -77,6 +121,57 @@
     reveals.forEach((el) => revObs.observe(el));
   } else {
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+  }
+
+  // Hero metrics count-up
+  const metricValues = Array.from(document.querySelectorAll(".metric-value"));
+  if (metricValues.length) {
+    const numberFmt = new Intl.NumberFormat("en-US");
+
+    const paintMetric = (el, val) => {
+      const target = Number(el.getAttribute("data-count") || 0);
+      const suffix = String(el.getAttribute("data-suffix") || "");
+      const safe = Math.max(0, Math.min(target, val));
+      el.textContent = `${numberFmt.format(Math.round(safe))}${suffix}`;
+    };
+
+    const animateMetric = (el) => {
+      const target = Number(el.getAttribute("data-count") || 0);
+      const start = performance.now();
+      const duration = 900 + Math.min(target / 30, 900);
+
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        paintMetric(el, target * eased);
+        if (t < 1) window.requestAnimationFrame(tick);
+      };
+
+      window.requestAnimationFrame(tick);
+    };
+
+    if (reduceMotion) {
+      metricValues.forEach((el) => paintMetric(el, Number(el.getAttribute("data-count") || 0)));
+    } else {
+      metricValues.forEach((el) => paintMetric(el, 0));
+      const metricsRoot = document.querySelector(".hero-metrics");
+      if (metricsRoot) {
+        const metricsObs = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              metricValues.forEach((el, idx) => {
+                window.setTimeout(() => animateMetric(el), idx * 140);
+              });
+              obs.disconnect();
+            });
+          },
+          { threshold: 0.25 }
+        );
+
+        metricsObs.observe(metricsRoot);
+      }
+    }
   }
 
   // ✅ Skills bars fill on scroll (CSS uses var(--w))
