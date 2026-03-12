@@ -1,5 +1,23 @@
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rootEl = document.documentElement;
+
+  // Theme mode: automatic by local time
+  const themeFromTime = () => {
+    const hour = new Date().getHours();
+    return hour >= 6 && hour < 17 ? "light" : "dark";
+  };
+
+  const applyAutoTheme = () => {
+    rootEl.setAttribute("data-theme", themeFromTime());
+  };
+
+  applyAutoTheme();
+
+  window.setInterval(applyAutoTheme, 60000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) applyAutoTheme();
+  });
 
   // Footer year
   const yearEl = document.getElementById("year");
@@ -178,6 +196,23 @@
   const skillsSection = document.querySelector("#skills");
   if (skillsSection) {
     const bars = Array.from(skillsSection.querySelectorAll(".bar i"));
+    const levelFromPercent = (rawPercent) => {
+      const n = Number(String(rawPercent).replace("%", ""));
+      if (!Number.isFinite(n)) return "Working";
+      if (n >= 85) return "Expert";
+      if (n >= 70) return "Advanced";
+      if (n >= 55) return "Strong";
+      if (n >= 40) return "Working";
+      return "Foundation";
+    };
+
+    bars.forEach((bar) => {
+      const w = bar.getAttribute("data-w");
+      if (!w) return;
+      const row = bar.closest(".bar");
+      if (!row) return;
+      row.setAttribute("data-level", `${levelFromPercent(w)} · ${w}`);
+    });
 
     if (reduceMotion) {
       bars.forEach((bar) => {
