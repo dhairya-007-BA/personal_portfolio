@@ -1,0 +1,34 @@
+{
+  "name": "personal_portfolio",
+  "version": "1.0.0",
+  "description": "Dhairya Singhal — business analysis and data analytics portfolio",
+  "scripts": {
+    "dev": "node tooling/serve.mjs",
+    "preview": "node tooling/serve.mjs --dist",
+    "build": "node tooling/build.mjs",
+    "lint": "eslint . && html-validate index.html",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "check": "npm run lint && npm run build && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhairya-007-BA/personal_portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhairya-007-BA/personal_portfolio/issues"
+  },
+  "homepage": "https://github.com/dhairya-007-BA/personal_portfolio#readme",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "html-validate": "^11.16.1"
+  },
+  "private": true
+}

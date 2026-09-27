@@ -1,23 +1,42 @@
-(() => {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// This static page owns its listeners/observers; dispose them on navigation and
+// reinitialize after a back-forward-cache restore.
+function initializePortfolio() {
+  const lifecycle = new AbortController();
+  const timers = new Set();
+  const frames = new Set();
+  const observers = [];
+  const on = (target, event, callback, options = {}) => target.addEventListener(event, callback, { ...options, signal: lifecycle.signal });
+  const later = (callback, delay) => {
+    const id = window.setTimeout(() => { timers.delete(id); callback(); }, delay);
+    timers.add(id);
+    return id;
+  };
+  const frame = (callback) => {
+    const id = requestAnimationFrame((time) => { frames.delete(id); callback(time); });
+    frames.add(id);
+  };
+  const observe = (callback, options) => {
+    const observer = new IntersectionObserver(callback, options);
+    observers.push(observer);
+    return observer;
+  };
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduceMotion = motion.matches;
   const rootEl = document.documentElement;
-
-  // Theme mode: automatic by local time
-  const themeFromTime = () => {
-    const hour = new Date().getHours();
-    return hour >= 6 && hour < 17 ? "light" : "dark";
-  };
-
-  const applyAutoTheme = () => {
-    rootEl.setAttribute("data-theme", themeFromTime());
-  };
-
-  applyAutoTheme();
-
-  window.setInterval(applyAutoTheme, 60000);
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) applyAutoTheme();
+  rootEl.classList.add('js');
+  on(motion, 'change', () => {
+    if (motion.matches) {
+      document.getAnimations().forEach((animation) => animation.cancel());
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+      document.querySelectorAll('.bar i').forEach((bar) => bar.style.setProperty('--w', bar.dataset.w));
+    }
   });
+  window.addEventListener('pagehide', () => {
+    lifecycle.abort();
+    timers.forEach(clearTimeout);
+    frames.forEach(cancelAnimationFrame);
+    observers.forEach((observer) => observer.disconnect());
+  }, { once: true });
 
   // Footer year
   const yearEl = document.getElementById("year");
@@ -35,65 +54,68 @@
     };
 
     updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    on(window, "scroll", updateProgress, { passive: true });
+    on(window, "resize", updateProgress);
   }
 
-  // Hero role rotator
-  const rotator = document.querySelector(".role-rotator");
+  // Retain the original role animation, but stop it offscreen or on reduced motion.
+  const rotator = document.querySelector('.role-rotator');
   if (rotator) {
-    const roles = String(rotator.getAttribute("data-roles") || "")
-      .split(",")
-      .map((x) => x.trim())
-      .filter(Boolean);
-
-    if (roles.length) rotator.textContent = roles[0];
-
-    if (!reduceMotion && roles.length > 1) {
-      let i = 0;
-      window.setInterval(() => {
-        i = (i + 1) % roles.length;
-        if (typeof rotator.animate === "function") {
-          rotator.animate(
-            [
-              { opacity: 0.35, transform: "translateY(4px)" },
-              { opacity: 1, transform: "translateY(0)" }
-            ],
-            { duration: 260, easing: "ease-out" }
-          );
-        }
-        rotator.textContent = roles[i];
-      }, 2000);
-    }
-  }
-
-  // Mobile nav toggle
-  const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".nav-links");
-
-  if (toggle && links) {
-    const closeMenu = () => {
-      links.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
+    const roles = rotator.dataset.roles.split(',').map((role) => role.trim());
+    let index = 0;
+    let timer;
+    let visible = false;
+    const schedule = () => {
+      clearTimeout(timer); timers.delete(timer);
+      if (!motion.matches && !document.hidden && visible) timer = later(() => {
+        if (motion.matches || document.hidden || !visible) { schedule(); return; }
+        index = (index + 1) % roles.length;
+        rotator.textContent = roles[index];
+        rotator.animate?.([{ opacity: .35, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 260, easing: 'ease-out' });
+        schedule();
+      }, 4000);
     };
-
-    toggle.addEventListener("click", () => {
-      const isOpen = links.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    links.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (!target) return;
-      if (!links.contains(target) && !toggle.contains(target)) closeMenu();
-    });
+    on(motion, 'change', schedule);
+    on(document, 'visibilitychange', schedule);
+    const visibility = observe((entries) => { visible = entries[0].isIntersecting; schedule(); });
+    visibility.observe(rotator);
   }
+
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  const mobile = window.matchMedia('(max-width: 1000px)');
+  if (toggle && links) {
+    const closeMenu = (restoreFocus = false) => {
+      const wasOpen = links.classList.contains('open');
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      if (restoreFocus && wasOpen) toggle.focus();
+    };
+    on(toggle, 'click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    links.querySelectorAll('a').forEach((link) => on(link, 'click', () => {
+      closeMenu();
+      const href = link.getAttribute('href');
+      if (mobile.matches && href.startsWith('#')) {
+        const destination = document.querySelector(href);
+        destination?.setAttribute('tabindex', '-1');
+        destination?.focus({ preventScroll: true });
+      }
+    }));
+    on(document, 'keydown', (event) => {
+      if (event.key === 'Escape') closeMenu(true);
+    });
+    on(document, 'click', (event) => {
+      if (!links.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+    });
+    on(document, 'focusin', (event) => {
+      if (!links.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+    });
+    on(mobile, 'change', () => closeMenu(true));
+  }
+
 
   // Active section highlight (hash links only)
   const navLinks = Array.from(document.querySelectorAll(".nav-link"));
@@ -107,11 +129,13 @@
     navLinks.forEach((a) => {
       const h = a.getAttribute("href");
       a.classList.toggle("active", h === `#${id}`);
+      if (h === `#${id}`) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
     });
   };
 
   if (sectionEls.length) {
-    const spy = new IntersectionObserver(
+    const spy = observe(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) setActive(entry.target.id);
@@ -123,9 +147,10 @@
   }
 
   // Reveal on scroll
-  if (!reduceMotion) {
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    rootEl.classList.add("reveal-enabled");
     const reveals = document.querySelectorAll(".reveal");
-    const revObs = new IntersectionObserver(
+    const revObs = observe(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -134,7 +159,7 @@
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.05 }
     );
     reveals.forEach((el) => revObs.observe(el));
   } else {
@@ -159,13 +184,13 @@
       const duration = 900 + Math.min(target / 30, 900);
 
       const tick = (now) => {
-        const t = Math.min(1, (now - start) / duration);
+        const t = motion.matches ? 1 : Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - t, 3);
         paintMetric(el, target * eased);
-        if (t < 1) window.requestAnimationFrame(tick);
+        if (t < 1) frame(tick);
       };
 
-      window.requestAnimationFrame(tick);
+      frame(tick);
     };
 
     if (reduceMotion) {
@@ -174,12 +199,12 @@
       metricValues.forEach((el) => paintMetric(el, 0));
       const metricsRoot = document.querySelector(".hero-metrics");
       if (metricsRoot) {
-        const metricsObs = new IntersectionObserver(
+        const metricsObs = observe(
           (entries, obs) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
               metricValues.forEach((el, idx) => {
-                window.setTimeout(() => animateMetric(el), idx * 140);
+                later(() => animateMetric(el), idx * 140);
               });
               obs.disconnect();
             });
@@ -196,24 +221,6 @@
   const skillsSection = document.querySelector("#skills");
   if (skillsSection) {
     const bars = Array.from(skillsSection.querySelectorAll(".bar i"));
-    const levelFromPercent = (rawPercent) => {
-      const n = Number(String(rawPercent).replace("%", ""));
-      if (!Number.isFinite(n)) return "Working";
-      if (n >= 85) return "Expert";
-      if (n >= 70) return "Advanced";
-      if (n >= 55) return "Strong";
-      if (n >= 40) return "Working";
-      return "Foundation";
-    };
-
-    bars.forEach((bar) => {
-      const w = bar.getAttribute("data-w");
-      if (!w) return;
-      const row = bar.closest(".bar");
-      if (!row) return;
-      row.setAttribute("data-level", `${levelFromPercent(w)} · ${w}`);
-    });
-
     if (reduceMotion) {
       bars.forEach((bar) => {
         const w = bar.getAttribute("data-w");
@@ -222,7 +229,7 @@
     } else {
       bars.forEach((bar) => bar.style.setProperty("--w", "0%"));
 
-      const skillsObs = new IntersectionObserver(
+      const skillsObs = observe(
         (entries, obs) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
@@ -230,7 +237,7 @@
             bars.forEach((bar, i) => {
               const w = bar.getAttribute("data-w");
               if (!w) return;
-              window.setTimeout(() => bar.style.setProperty("--w", w), i * 110);
+              later(() => bar.style.setProperty("--w", w), i * 110);
             });
 
             obs.disconnect();
@@ -243,239 +250,76 @@
     }
   }
 
-  // Contact form (mailto)
-  const form = document.getElementById("contactForm");
-  const note = document.getElementById("formNote");
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    if (!name || !message) {
+      note.textContent = 'Please enter your name and a message, not just spaces.';
+      form.elements.namedItem(!name ? 'name' : 'message').focus();
+      return;
+    }
+    const subject = encodeURIComponent(`Portfolio Inquiry — ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`);
+    window.location.href = `mailto:dhairyasinghal403@gmail.com?subject=${subject}&body=${body}`;
+    note.textContent = 'Email draft requested. Send it in your email app. Your message stays here if you need to copy it.';
+  });
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const fd = new FormData(form);
-      const name = String(fd.get("name") || "").trim();
-      const email = String(fd.get("email") || "").trim();
-      const message = String(fd.get("message") || "").trim();
-
-      if (!name || !email || !message) {
-        if (note) note.textContent = "Please fill in all fields.";
-        return;
+  function createProjectsCarousel(carousel) {
+    const viewport = carousel.querySelector('.pc-viewport');
+    const cards = [...carousel.querySelectorAll('.p-card')];
+    if (!viewport || !cards.length) return;
+    let timer;
+    let hovered = false;
+    let touching = false;
+    let visible = false;
+    const stop = () => { clearTimeout(timer); timers.delete(timer); };
+    const step = (direction) => {
+      const gap = parseFloat(getComputedStyle(carousel.querySelector('.pc-track')).gap) || 0;
+      const distance = cards[0].getBoundingClientRect().width + gap;
+      const max = viewport.scrollWidth - viewport.clientWidth;
+      let left = viewport.scrollLeft + direction * distance;
+      if (direction > 0 && viewport.scrollLeft >= max - 2) left = 0;
+      else if (direction < 0 && viewport.scrollLeft <= 2) left = max;
+      viewport.scrollTo({ left: Math.max(0, Math.min(max, left)), behavior: motion.matches ? 'instant' : 'smooth' });
+    };
+    const schedule = () => {
+      stop();
+      if (visible && !motion.matches && !document.hidden && !hovered && !touching && !carousel.contains(document.activeElement)) {
+        timer = later(() => {
+          if (!motion.matches && !document.hidden && visible && !hovered && !touching && !carousel.contains(document.activeElement)) step(1);
+          schedule();
+        }, 12000);
       }
-
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) {
-        if (note) note.textContent = "Please enter a valid email.";
-        return;
-      }
-
-      const subject = encodeURIComponent(`Portfolio Inquiry — ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`);
-
-      window.location.href = `mailto:dhairyasinghal403@gmail.com?subject=${subject}&body=${body}`;
-      if (note) note.textContent = "Opening your email client…";
-      form.reset();
+    };
+    on(carousel.querySelector('.pc-prev'), 'click', () => { stop(); step(-1); });
+    on(carousel.querySelector('.pc-next'), 'click', () => { stop(); step(1); });
+    on(carousel, 'pointerenter', (event) => { if (event.pointerType === 'mouse') { hovered = true; stop(); } });
+    on(carousel, 'pointerleave', () => { hovered = false; schedule(); });
+    on(carousel, 'focusin', stop);
+    on(carousel, 'focusout', () => later(schedule, 0));
+    on(viewport, 'pointerdown', () => { touching = true; stop(); }, { passive: true });
+    on(window, 'pointerup', () => { if (touching) { touching = false; schedule(); } }, { passive: true });
+    on(window, 'pointercancel', () => { touching = false; schedule(); }, { passive: true });
+    on(viewport, 'wheel', schedule, { passive: true });
+    on(document, 'visibilitychange', schedule);
+    on(motion, 'change', () => {
+      if (motion.matches) viewport.scrollTo({ left: viewport.scrollLeft, behavior: 'instant' });
+      schedule();
     });
+    const visibility = observe((entries) => {
+      visible = entries[0].isIntersecting;
+      schedule();
+    }, { threshold: 0.1 });
+    visibility.observe(carousel);
   }
+  document.querySelectorAll('.projects-carousel').forEach(createProjectsCarousel);
 
-  /* =========================
-     Projects Carousel (fixed sizing + single-click links)
-  ========================= */
-
-  function getVisibleCards(carouselEl) {
-    const styles = getComputedStyle(carouselEl);
-    const v = styles.getPropertyValue("--pc-cards").trim();
-    const n = Number(v);
-    return Number.isFinite(n) && n > 0 ? n : 3;
-  }
-
-  function createProjectsCarousel(carouselEl) {
-    const viewport = carouselEl.querySelector(".pc-viewport");
-    const track = carouselEl.querySelector(".pc-track");
-    const prevBtn = carouselEl.querySelector(".pc-prev");
-    const nextBtn = carouselEl.querySelector(".pc-next");
-    if (!viewport || !track) return;
-
-    let originalCards = Array.from(track.children);
-    if (!originalCards.length) return;
-
-    let visible = getVisibleCards(carouselEl);
-    let index = visible;
-    let isAnimating = false;
-    let autoplayTimer = null;
-
-    const interval = Number(carouselEl.getAttribute("data-interval")) || 3000;
-    let autoplay = carouselEl.getAttribute("data-autoplay") === "true";
-    if (reduceMotion) autoplay = false;
-
-    // Swipe
-    let startX = 0;
-    let currentX = 0;
-    let isPointerDown = false;
-    let isDragging = false;
-
-    const getGapPx = () => {
-      const cs = getComputedStyle(track);
-      const gap = cs.gap || cs.columnGap || "0px";
-      const px = parseFloat(gap);
-      return Number.isFinite(px) ? px : 0;
-    };
-
-    const slideSize = () => {
-      const firstCard = track.querySelector(".p-card");
-      if (!firstCard) return 0;
-      return firstCard.getBoundingClientRect().width + getGapPx();
-    };
-
-    const setTranslate = (x, withTransition = true) => {
-      track.style.transition = withTransition ? "transform 420ms ease" : "none";
-      track.style.transform = `translate3d(${x}px,0,0)`;
-    };
-
-    const cleanupClones = () => {
-      track.querySelectorAll("[data-clone='true']").forEach((n) => n.remove());
-    };
-
-    const markCloneA11y = (node) => {
-      node.setAttribute("aria-hidden", "true");
-      node.querySelectorAll("a,button,input,textarea,select").forEach((el) => el.setAttribute("tabindex", "-1"));
-    };
-
-    const buildClones = () => {
-      cleanupClones();
-
-      originalCards = Array.from(track.children).filter((n) => n.getAttribute("data-clone") !== "true");
-      visible = getVisibleCards(carouselEl);
-
-      const tail = originalCards.slice(-visible).map((n) => {
-        const c = n.cloneNode(true);
-        c.setAttribute("data-clone", "true");
-        markCloneA11y(c);
-        return c;
-      });
-
-      const head = originalCards.slice(0, visible).map((n) => {
-        const c = n.cloneNode(true);
-        c.setAttribute("data-clone", "true");
-        markCloneA11y(c);
-        return c;
-      });
-
-      tail.forEach((n) => track.prepend(n));
-      head.forEach((n) => track.append(n));
-
-      index = visible;
-      setTranslate(-index * slideSize(), false);
-    };
-
-    const goTo = (newIndex, { animate = true } = {}) => {
-      if (isAnimating && animate) return;
-      const step = slideSize();
-      if (!step) return;
-
-      isAnimating = animate;
-      index = newIndex;
-      setTranslate(-index * step, animate);
-    };
-
-    const next = () => goTo(index + 1, { animate: true });
-    const prev = () => goTo(index - 1, { animate: true });
-
-    const startAutoplay = () => {
-      if (!autoplay) return;
-      stopAutoplay();
-      autoplayTimer = window.setInterval(next, interval);
-    };
-
-    const stopAutoplay = () => {
-      if (autoplayTimer) {
-        window.clearInterval(autoplayTimer);
-        autoplayTimer = null;
-      }
-    };
-
-    const onTransitionEnd = () => {
-      const totalOriginal = originalCards.length;
-      const lastRealIndex = visible + totalOriginal - 1;
-
-      if (index > lastRealIndex) {
-        index = visible;
-        setTranslate(-index * slideSize(), false);
-      }
-      if (index < visible) {
-        index = lastRealIndex;
-        setTranslate(-index * slideSize(), false);
-      }
-      isAnimating = false;
-    };
-
-    if (prevBtn) prevBtn.addEventListener("click", () => { stopAutoplay(); prev(); startAutoplay(); });
-    if (nextBtn) nextBtn.addEventListener("click", () => { stopAutoplay(); next(); startAutoplay(); });
-
-    carouselEl.addEventListener("mouseenter", stopAutoplay);
-    carouselEl.addEventListener("mouseleave", startAutoplay);
-    carouselEl.addEventListener("focusin", stopAutoplay);
-    carouselEl.addEventListener("focusout", startAutoplay);
-
-    // ✅ Don’t capture pointerdown on links/buttons (so View Dashboard opens on single click)
-    viewport.addEventListener("pointerdown", (e) => {
-      const target = e.target;
-      if (target && target.closest("a,button")) return;
-
-      isPointerDown = true;
-      isDragging = false;
-      startX = e.clientX;
-      currentX = startX;
-
-      stopAutoplay();
-      track.style.transition = "none";
-      viewport.setPointerCapture?.(e.pointerId);
-    });
-
-    viewport.addEventListener("pointermove", (e) => {
-      if (!isPointerDown) return;
-
-      currentX = e.clientX;
-      const delta = currentX - startX;
-      if (Math.abs(delta) > 8) isDragging = true;
-
-      const base = -index * slideSize();
-      setTranslate(base + delta, false);
-    });
-
-    const endPointer = () => {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-
-      const delta = currentX - startX;
-      const threshold = 60;
-
-      if (isDragging) {
-        if (delta <= -threshold) next();
-        else if (delta >= threshold) prev();
-        else goTo(index, { animate: true });
-      } else {
-        goTo(index, { animate: true });
-      }
-
-      startAutoplay();
-    };
-
-    viewport.addEventListener("pointerup", endPointer);
-    viewport.addEventListener("pointercancel", endPointer);
-    viewport.addEventListener("pointerleave", endPointer);
-
-    track.addEventListener("transitionend", onTransitionEnd);
-
-    let resizeTimer = null;
-    window.addEventListener("resize", () => {
-      window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => {
-        buildClones();
-      }, 140);
-    });
-
-    buildClones();
-    startAutoplay();
-  }
-
-  document.querySelectorAll(".projects-carousel").forEach(createProjectsCarousel);
-})();
+}
+initializePortfolio();
+window.addEventListener('pageshow', (event) => { if (event.persisted) initializePortfolio(); });

@@ -4,20 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Dhairya Singhal | Business Analyst</title>
-  <meta name="description" content="Dhairya Singhal - Business Analyst focused on data storytelling, dashboard strategy, and practical digital transformation. Explore experience, projects, and skills." />
+  <title>Dhairya Singhal | Business Analyst &amp; Data Analytics</title>
+  <meta name="description" content="Business Analyst focused on data analytics, business intelligence and digital transformation. Explore Power BI, SQL, Excel and Tableau projects and experience across operations and supply chain." />
+  <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#f4efe2" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <script src="theme.js"></script>
 
   <link rel="canonical" href="https://dhairya-007-ba.github.io/personal_portfolio/" />
 
-  <meta property="og:title" content="Dhairya Singhal | Business Analyst" />
+  <meta property="og:title" content="Dhairya Singhal | Business Analyst &amp; Data Analytics" />
   <meta property="og:description" content="Portfolio showcasing data-driven business analysis, dashboard development, and strategy-focused execution." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dhairya-007-ba.github.io/personal_portfolio/" />
   <meta property="og:image" content="https://dhairya-007-ba.github.io/personal_portfolio/logo.png" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Dhairya Singhal | Business Analyst" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://dhairya-007-ba.github.io/personal_portfolio/logo.png" />
+  <meta property="og:image:alt" content="Dhairya Singhal portfolio logo" />
+  <meta name="twitter:title" content="Dhairya Singhal | Business Analyst &amp; Data Analytics" />
   <meta name="twitter:description" content="Data storytelling, business analysis, and digital transformation portfolio." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,18 +57,18 @@
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <a class="logo-fixed" href="#home" aria-label="Go to top">
-    <img src="logo.png" alt="DSBA Logo" loading="eager" decoding="async" />
+    <img src="logo.png" alt="DSBA Logo" width="500" height="500" decoding="async" />
   </a>
 
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <div class="nav-spacer" aria-hidden="true"></div>
 
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-controls="nav-links" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
 
-      <div class="nav-links" role="navigation">
+      <div class="nav-links" id="nav-links">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#experience" class="nav-link">Experience</a>
@@ -74,7 +80,7 @@
     </div>
   </nav>
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     <section id="home" class="section hero">
       <div class="container">
         <div class="hero-grid">
@@ -89,19 +95,19 @@
             </p>
 
             <p class="hero-intro">
-              I combine Business Analyst structure, Project Manager execution, and Data Analyst depth
-              to help teams align decisions, delivery, and measurable outcomes.
+              I combine business analysis, data analytics, and process improvement to help teams turn
+              operational problems into clear reporting and practical decisions. I’m building toward project coordination and transformation delivery.
             </p>
 
             <div class="hero-chips">
               <span class="chip chip-ba">Business Analyst Lens</span>
-              <span class="chip chip-pm">Project Manager Execution</span>
+              <span class="chip chip-pm">Project Delivery Mindset</span>
               <span class="chip chip-da">Data Analyst Rigor</span>
             </div>
 
             <div class="hero-cta">
-              <a class="btn primary" href="#contact" style="color: #ffffff;">Get in Touch</a>
-              <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+              <a class="btn primary" href="#contact">Get in Touch</a>
+              <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener noreferrer">View Resume</a>
             </div>
 
             <div class="hero-metrics reveal">
@@ -123,6 +129,7 @@
           <div class="hero-right reveal">
             <div class="hero-visual">
               <div class="hero-dashboard">
+                <p class="visual-caption">Illustrative dashboard · sample data</p>
                 <article class="dash-card dash-card-wide">
                   <div class="dash-head">
                     Supply Chain Snapshot
@@ -153,7 +160,7 @@
                 </article>
 
                 <article class="dash-card">
-                  <h4>Reporting Health</h4>
+                  <p class="dash-title">Reporting Health</p>
                   <ul class="dash-bars">
                     <li><span>Standardized reports</span><i style="--p: 84%"></i></li>
                     <li><span>Dashboard adoption</span><i style="--p: 76%"></i></li>
@@ -193,7 +200,7 @@
               <span class="tag">Data Storytelling</span>
               <span class="tag">Stakeholder Alignment</span>
               <span class="tag">Process Mapping</span>
-              <span class="tag">Reporting & Insights</span>
+              <span class="tag">Reporting &amp; Insights</span>
             </div>
           </div>
 
@@ -212,7 +219,7 @@
           </div>
 
           <div class="about-card reveal">
-            <h3>Education</h3>
+            <h3 id="education">Education</h3>
             <p>
               <strong>Bachelor of Business Administration - Simon Fraser University</strong><br/>
               Concentration: MIS and Operations | Certificate: Business Analysis and Decision Making
@@ -236,45 +243,42 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Experience</h2>
-          <p class="subhead">Impact-focused roles across business analysis, project leadership, and data work.</p>
+          <p class="subhead">Experience in business analysis, supply-chain reporting, data quality, and academic support.</p>
         </div>
 
         <div class="impact-strip reveal">
           <div class="impact-item">
-            <span class="impact-kicker">Current focus</span>
-            <p>Building supply-chain reporting and dashboard governance at MineSense.</p>
+            <span class="impact-kicker">Supply-chain experience</span>
+            <p>Built supply-chain reporting and dashboard governance at MineSense.</p>
           </div>
           <div class="impact-item">
             <span class="impact-kicker">Execution style</span>
-            <p>Translate stakeholder requests into usable metrics, then ship fast.</p>
+            <p>Translate stakeholder needs into usable metrics, clear documentation, and repeatable workflows.</p>
           </div>
           <div class="impact-item">
             <span class="impact-kicker">Career direction</span>
-            <p>Technology consulting and strategy roles grounded in data execution.</p>
+            <p>Growing from business and data analysis into project coordination, business systems, and project management.</p>
           </div>
         </div>
 
 
 
         <div class="timeline">
-        <div class="t-item reveal">
+          <div class="t-item reveal">
             <div class="t-dot"></div>
             <div class="t-card">
               <div class="t-top">
-                <h3>Chief Project Manager</h3>
-                <span class="t-meta">ProveIt Hiring Incorporation · Apr 2025 – Present</span>
+                <h3>Teaching Assistant</h3>
+                <span class="t-meta">Beedie School of Business at Simon Fraser University · September 2026 – December 2026</span>
+                <p class="t-meta">Burnaby/Surrey, British Columbia, Canada · Term appointment</p>
               </div>
               <ul class="bullets">
-                <li>Led cross-functional initiatives with structured milestones, roadmaps, and delivery accountability.</li>
-                <li>Introduced sprint cycles and planning processes to improve execution speed and alignment.</li>
-                <li>Improved stakeholder alignment through structured updates, prioritization, and decision-focused communication.</li>
+                <li>Support BUS 217W — Critical Thinking in Business, assisting students with critical thinking and business communication.</li>
+                <li>Support course delivery and provide academic guidance and feedback.</li>
               </ul>
-              
-            <div class="badges">
-                <span class="badge">Project Management</span>
-                <span class="badge">MS Excel</span>
-                <span class="badge">Power BI</span>
-                <span class="badge soft">Stakeholder Management</span>
+              <div class="badges">
+                <span class="badge">Critical Thinking</span>
+                <span class="badge">Business Communication</span>
               </div>
             </div>
           </div>
@@ -307,7 +311,7 @@
             <div class="t-card">
               <div class="t-top">
                 <h3>Junior Business Analyst (Co-op)</h3>
-                <span class="t-meta">Beedie Executive Education · SFU · May 2025 – Dec 2025</span>
+                <span class="t-meta">Beedie Executive Education · SFU · May 2025 – December 2025</span>
               </div>
               <ul class="bullets">
                 <li>Delivered KPI insights supporting program, enrollment, and revenue decisions for leadership.</li>
@@ -329,7 +333,7 @@
             <div class="t-card">
               <div class="t-top">
                 <h3>Data Research Assistant</h3>
-                <span class="t-meta">Beedie School of Business · May 2024 – Aug 2024</span>
+                <span class="t-meta">Beedie School of Business · May 2024 – August 2024</span>
               </div>
               <ul class="bullets">
                 <li>Verified 1,000+ alumni records weekly using LinkedIn, company websites, and databases.</li>
@@ -354,21 +358,21 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Projects</h2>
-          <p class="subhead">A selected portfolio of dashboards and analyses built around business decisions.</p>
+          <p class="subhead">Personal projects connecting business questions with analysis, reporting, and decision support.</p>
         </div>
 
         <p class="projects-note reveal">
           Each project follows the same structure: define the decision, build the right view, then make insights actionable.
         </p>
 
-        <div class="projects-carousel reveal" data-autoplay="true" data-interval="3000">
+        <div class="projects-carousel reveal">
           <button class="pc-arrow pc-prev" type="button" aria-label="Previous project">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
 
-          <div class="pc-viewport" aria-label="Projects carousel">
+          <div class="pc-viewport" role="group" aria-label="Projects carousel">
             <div class="pc-track">
 
                         <article class="p-card">
@@ -378,8 +382,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Hard to track income, expenses, savings, and transactions in one place.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard with Overview, Transactions, and Statistics pages.</p>
+                  <p><strong>Business problem:</strong> Hard to track income, expenses, savings, and transactions in one place.</p>
+                  <p><strong>My approach:</strong> A Tableau dashboard with Overview, Transactions, and Statistics pages.</p>
                   <p><strong>Highlights:</strong> KPI cards, category views, trend charts, and interactive filters.</p>
                   <p><strong>Impact:</strong> Turned raw transactions into clear daily money insights.</p>
                 </div>
@@ -391,7 +395,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://app.powerbi.com/links/EZC03XhtyF?ctid=04e8677e-c989-47b9-8619-d83d5a5f6c67&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Personal Finance Dashboard" href="https://public.tableau.com/views/PersonalFinanceDashboard_17746381911720/Overview?:language=en-US&amp;:sid=&amp;:redirect=auth&amp;:display_count=n&amp;:origin=viz_share_link" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -402,8 +406,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Hard to compare unicorn growth signals across regions, industries, and funding stages.</p>
-                  <p><strong>What I built:</strong> An interactive Power BI dashboard to explore unicorn trends and key drivers.</p>
+                  <p><strong>Business problem:</strong> Hard to compare unicorn growth signals across regions, industries, and funding stages.</p>
+                  <p><strong>My approach:</strong> An interactive Power BI dashboard to explore unicorn trends and key drivers.</p>
                   <p><strong>Impact:</strong> A reusable view to quickly filter insights by geography, sector, and timeline.</p>
                 </div>
 
@@ -414,7 +418,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://app.powerbi.com/links/EZC03XhtyF?ctid=04e8677e-c989-47b9-8619-d83d5a5f6c67&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Global Unicorn Dashboard" href="https://app.powerbi.com/links/EZC03XhtyF?ctid=04e8677e-c989-47b9-8619-d83d5a5f6c67&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -425,8 +429,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Financial performance insights can get buried in spreadsheets and static summaries.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard to track financial KPIs and surface key performance trends.</p>
+                  <p><strong>Business problem:</strong> Financial performance insights can get buried in spreadsheets and static summaries.</p>
+                  <p><strong>My approach:</strong> A Tableau dashboard to track financial KPIs and surface key performance trends.</p>
                   <p><strong>Impact:</strong> Faster, clearer analysis for decision-making using interactive filtering and KPIs.</p>
                 </div>
 
@@ -437,7 +441,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/FinancialDashboard_17602495838830/FinancialDashboard" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Financial Analytics Dashboard" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/FinancialDashboard_17602495838830/FinancialDashboard" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -448,8 +452,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Airline delays are complex—hard to spot patterns by airport, carrier, and time.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard analyzing delay drivers with interactive breakdowns.</p>
+                  <p><strong>Business problem:</strong> Airline delays are complex—hard to spot patterns by airport, carrier, and time.</p>
+                  <p><strong>My approach:</strong> A Tableau dashboard analyzing delay drivers with interactive breakdowns.</p>
                   <p><strong>Impact:</strong> Quick visibility into delay hotspots and root causes across key dimensions.</p>
                 </div>
 
@@ -460,7 +464,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/AirlineDelayDashboard_17499218739400/Dashboard1" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Airline Delay Dashboard" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/AirlineDelayDashboard_17499218739400/Dashboard1" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -471,8 +475,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> SQL skills grow fastest with consistent, hands-on query practice on real schemas.</p>
-                  <p><strong>What I built:</strong> A SQLite + VS Code practice environment for writing and testing real-world queries.</p>
+                  <p><strong>Business problem:</strong> SQL skills grow fastest with consistent, hands-on query practice on real schemas.</p>
+                  <p><strong>My approach:</strong> A SQLite + VS Code practice environment for writing and testing real-world queries.</p>
                   <p><strong>Impact:</strong> Improved query fluency across joins, aggregations, and subqueries using repeatable exercises.</p>
                 </div>
 
@@ -483,7 +487,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://github.com/dhairya-007-BA/SQLPractice" target="_blank" rel="noopener noreferrer">View Project</a>
+                  <a class="plink" aria-label="View SQL Practice Project" href="https://github.com/dhairya-007-BA/SQLPractice" target="_blank" rel="noopener noreferrer">View Project</a>
                 </div>
               </article>
 
@@ -494,8 +498,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Budget vs actual variance is hard to monitor without a clean variance view.</p>
-                  <p><strong>What I built:</strong> A dashboard-style view to compare budgets vs actuals and highlight variance drivers.</p>
+                  <p><strong>Business problem:</strong> Budget vs actual variance is hard to monitor without a clean variance view.</p>
+                  <p><strong>My approach:</strong> A dashboard-style view to compare budgets vs actuals and highlight variance drivers.</p>
                   <p><strong>Impact:</strong> Clear visibility into overspending/underspending areas to support better planning.</p>
                 </div>
 
@@ -506,7 +510,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://media.licdn.com/dms/image/v2/D562DAQGv3ckbNvCfVA/profile-treasury-image-shrink_8192_8192/B56Zg9edFlHMAg-/0/1753378050799?e=1766610000&v=beta&t=lwEmoShLRxKjkm2-HWMY1LMkjqE29LIhdXavNXt-7Yo" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="Request Toronto Budget vs Actuals Dashboard" href="mailto:dhairyasinghal403@gmail.com?subject=Toronto%20Budget%20vs%20Actuals%20Dashboard">Request Dashboard</a>
                 </div>
               </article>
 
@@ -517,8 +521,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Funnel conversion bottlenecks are hard to find without stage-by-stage visibility.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard to monitor funnel stages, conversion rates, and drop-offs.</p>
+                  <p><strong>Business problem:</strong> Funnel conversion bottlenecks are hard to find without stage-by-stage visibility.</p>
+                  <p><strong>My approach:</strong> A Tableau dashboard to monitor funnel stages, conversion rates, and drop-offs.</p>
                   <p><strong>Impact:</strong> Faster identification of pipeline bottlenecks and stage performance trends.</p>
                 </div>
 
@@ -529,7 +533,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/SalesFunnelPerformanceDashboard/SalesFunnelPerformanceDashboard" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Sales Funnel Performance Dashboard" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/SalesFunnelPerformanceDashboard/SalesFunnelPerformanceDashboard" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -540,8 +544,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Streaming patterns are noisy—hard to spot what’s trending without good filters.</p>
-                  <p><strong>What I built:</strong> A Tableau dashboard exploring artists, genres, and listening behavior trends.</p>
+                  <p><strong>Business problem:</strong> Streaming patterns are noisy—hard to spot what’s trending without good filters.</p>
+                  <p><strong>My approach:</strong> A Tableau dashboard exploring artists, genres, and listening behavior trends.</p>
                   <p><strong>Impact:</strong> Quick exploration of trend shifts using interactive slicing and filtering.</p>
                 </div>
 
@@ -552,7 +556,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/Book1_17484586916350/Dashboard1" target="_blank" rel="noopener noreferrer">View Dashboard</a>
+                  <a class="plink" aria-label="View Spotify Trend Dashboard" href="https://public.tableau.com/app/profile/dhairya.singhal/viz/Book1_17484586916350/Dashboard1" target="_blank" rel="noopener noreferrer">View Dashboard</a>
                 </div>
               </article>
 
@@ -563,8 +567,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Pricing and occupancy signals vary by location and listing type—easy to misread.</p>
-                  <p><strong>What I built:</strong> A Python analysis + visuals to explore pricing patterns and demand drivers.</p>
+                  <p><strong>Business problem:</strong> Pricing and occupancy signals vary by location and listing type—easy to misread.</p>
+                  <p><strong>My approach:</strong> A Python analysis + visuals to explore pricing patterns and demand drivers.</p>
                   <p><strong>Impact:</strong> Clearer understanding of how location, reviews, and features relate to performance.</p>
                 </div>
 
@@ -575,7 +579,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://github.com/dhairya-007-BA/Airbnb-Business-Data-Analysis-Project" target="_blank" rel="noopener noreferrer">View Project</a>
+                  <a class="plink" aria-label="View Airbnb Data Visualization" href="https://github.com/dhairya-007-BA/Airbnb-Business-Data-Analysis-Project" target="_blank" rel="noopener noreferrer">View Project</a>
                 </div>
               </article>
 
@@ -586,8 +590,8 @@
                 </div>
 
                 <div class="p-detail">
-                  <p><strong>Problem:</strong> Sales insights get buried without a consistent KPI view by region and product.</p>
-                  <p><strong>What I built:</strong> An Excel dashboard using pivots/charts to analyze sales and profitability.</p>
+                  <p><strong>Business problem:</strong> Sales insights get buried without a consistent KPI view by region and product.</p>
+                  <p><strong>My approach:</strong> An Excel dashboard using pivots/charts to analyze sales and profitability.</p>
                   <p><strong>Impact:</strong> Faster reporting and clearer insight into revenue drivers and segments.</p>
                 </div>
 
@@ -598,7 +602,7 @@
                 </div>
 
                 <div class="p-links">
-                  <a class="plink" href="https://github.com/dhairya-007-BA/Superstore-Dashboard/blob/main/Superstore.xlsx" target="_blank" rel="noopener noreferrer">View Project</a>
+                  <a class="plink" aria-label="View Superstore Sales Dashboard" href="https://github.com/dhairya-007-BA/Superstore-Dashboard/blob/main/Superstore.xlsx" target="_blank" rel="noopener noreferrer">View Project</a>
                 </div>
               </article>
 
@@ -618,38 +622,38 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Skills</h2>
-          <p class="subhead">Balanced across analytics, strategy, tools, and leadership.</p>
+          <p class="subhead">Business understanding, delivery practices, and data tools — applied through reporting, analysis, and process improvement.</p>
         </div>
 
         <div class="skills-grid skills-2col">
           <div class="s-card s-card-analytics reveal">
-            <h3>Analytics & Data</h3>
+            <h3>Analytics &amp; Data</h3>
             <div class="bars">
-              <div class="bar"><span>Excel</span><i data-w="90%"></i></div>
-              <div class="bar"><span>Jira</span><i data-w="80%"></i></div>
-              <div class="bar"><span>Power BI</span><i data-w="70%"></i></div>
-              <div class="bar"><span>Salesforce</span><i data-w="65%"></i></div>
-              <div class="bar"><span>Tableau</span><i data-w="50%"></i></div>
-              <div class="bar"><span>Python</span><i data-w="40%"></i></div>
-              <div class="bar"><span>SQL</span><i data-w="30%"></i></div>
+              <div class="bar"><span>Excel</span><i data-w="90%" style="--w: 90%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Power BI</span><i data-w="70%" style="--w: 70%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Salesforce</span><i data-w="65%" style="--w: 65%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Tableau</span><i data-w="50%" style="--w: 50%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Python</span><i data-w="40%" style="--w: 40%" aria-hidden="true"></i></div>
+              <div class="bar"><span>SQL</span><i data-w="30%" style="--w: 30%" aria-hidden="true"></i></div>
             </div>
           </div>
 
           <div class="s-card s-card-business reveal">
-            <h3>Business & Leadership</h3>
+            <h3>Business &amp; Delivery</h3>
             <div class="bars">
-              <div class="bar"><span>Stakeholders</span><i data-w="80%"></i></div>
-              <div class="bar"><span>Documentation</span><i data-w="80%"></i></div>
-              <div class="bar"><span>Presentation</span><i data-w="70%"></i></div>
-              <div class="bar"><span>Business Analysis</span><i data-w="65%"></i></div>
-              <div class="bar"><span>KPI Development</span><i data-w="60%"></i></div>
-              <div class="bar"><span>Process Improvement</span><i data-w="50%"></i></div>
-              <div class="bar"><span>Agile Methodologies</span><i data-w="30%"></i></div>
+              <div class="bar"><span>Stakeholder Communication</span><i data-w="80%" style="--w: 80%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Documentation</span><i data-w="80%" style="--w: 80%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Presentation</span><i data-w="70%" style="--w: 70%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Business Analysis</span><i data-w="65%" style="--w: 65%" aria-hidden="true"></i></div>
+              <div class="bar"><span>KPI Development</span><i data-w="60%" style="--w: 60%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Process Improvement</span><i data-w="50%" style="--w: 50%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Jira</span><i data-w="80%" style="--w: 80%" aria-hidden="true"></i></div>
+              <div class="bar"><span>Agile Methodologies</span><i data-w="30%" style="--w: 30%" aria-hidden="true"></i></div>
             </div>
           </div>
         </div>
 
-        <p class="skills-note reveal">Bars reflect comfort level based on real experience & project usage.</p>
+        <p class="skills-note reveal">Bars reflect comfort level based on real experience &amp; project usage.</p>
       </div>
     </section>
 
@@ -657,7 +661,7 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Contact</h2>
-          <p class="subhead">Open to conversations on analytics, business analysis, and strategy-focused roles.</p>
+          <p class="subhead">Open to business analysis, analytics, business systems, and project coordination opportunities.</p>
         </div>
 
         <div class="contact-grid">
@@ -665,28 +669,28 @@
             <div class="form-row">
               <label>
                 <span>Name</span>
-                <input type="text" name="name" placeholder="Your name" required />
+                <input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Your name" required />
               </label>
 
               <label>
                 <span>Email</span>
-                <input type="email" name="email" placeholder="you@example.com" required />
+                <input type="email" name="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required />
               </label>
             </div>
 
             <label>
               <span>Message</span>
-              <textarea name="message" rows="6" placeholder="What would you like to discuss?" required></textarea>
+              <textarea name="message" maxlength="4000" rows="6" placeholder="What would you like to discuss?" required></textarea>
             </label>
 
-            <button class="btn primary full" type="submit">Send Message</button>
-            <p class="form-note" id="formNote" aria-live="polite"></p>
+            <button class="btn primary full" type="submit">Open email draft</button>
+            <p class="form-note" id="formNote" role="status">Opens your email app; your message is sent from there.</p>
           </form>
 
           <div class="contact-card reveal">
             <h3>Find me</h3>
             <p class="contact-intro">
-              Based in Vancouver, BC. I am currently open to analyst and strategy opportunities where data execution drives business outcomes.
+              Based in Vancouver, BC. I’m interested in roles that connect data, operations, and project delivery — with a long-term goal of leading transformation projects.
             </p>
 
             <div class="socials">
@@ -725,7 +729,6 @@
                 </svg>
               </a>
             </div>
-
             <div class="closing">
               “Let’s build insights that drive real impact.”
             </div>
